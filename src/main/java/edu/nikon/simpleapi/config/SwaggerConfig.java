@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.paths.RelativePathProvider;
@@ -25,12 +24,21 @@ public class SwaggerConfig {
         this.context = context;
     }
 
+    private ApiInfo apiInfo() {
+        return new ApiInfoBuilder()
+                .title("Simple REST API")
+                .description("Simple REST API")
+                .contact("Nikon Petrunin (https://github.com/nikon-petr/simple-api)")
+                .version("1.0")
+                .build();
+    }
+
     @Bean
-    public Docket api() {
+    public Docket organizationApi() {
         return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("organization")
                 .select()
-                .apis(RequestHandlerSelectors.none())
-                .paths(PathSelectors.none())
+                .paths(PathSelectors.regex("/api/organization.*"))
                 .build()
                 .apiInfo(apiInfo())
                 .pathProvider(new RelativePathProvider(context) {
@@ -39,14 +47,5 @@ public class SwaggerConfig {
                         return "/api";
                     }
                 });
-    }
-
-    private ApiInfo apiInfo() {
-        return new ApiInfoBuilder()
-                .title("Simple REST API")
-                .description("Simple REST API")
-                .contact("Nikon Petrunin (https://github.com/nikon-petr/simple-api)")
-                .version("1.0")
-                .build();
     }
 }
