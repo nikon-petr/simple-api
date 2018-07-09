@@ -1,13 +1,25 @@
 package edu.nikon.simpleapi.api.common.dto;
 
-public class ErrorDto {
-    private String message;
+import java.util.List;
 
-    public String getMessage() {
-        return message;
+public class ErrorDto {
+
+    private List<String> messages;
+
+    public ErrorDto(List<String> messages) {
+        this.messages = messages;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public List<String> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<String> messages) {
+        this.messages = messages;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("ErrorDto{message=%s}", messages);
     }
 }
