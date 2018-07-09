@@ -1,21 +1,24 @@
 package edu.nikon.simpleapi.api.organization.dto;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import java.io.Serializable;
 
-public class OrganizationFilterDto implements Serializable {
+@ApiModel("OrganizationFilter")
+public class OrganizationFilterDto {
+
     private String name;
     private String inn;
-    private Bool active;
+    private Boolean active;
 
-    @NotNull(message = "name.invalid")
-    @NotBlank(message = "name.invalid")
-    @Length(max = 255, message = "name.invalid")
+    @NotNull(message = "name is required")
+    @Pattern(regexp = "^(?!\\s*$).+", message = "name should not be empty")
+    @Length(max = 255, message = "name length should not be greater than 255 characters")
+    @ApiModelProperty(required = true)
     public String getName() {
         return name;
     }
@@ -24,7 +27,7 @@ public class OrganizationFilterDto implements Serializable {
         this.name = name;
     }
 
-    @Pattern(regexp = "^([0-9]{10}|[0-9]{12})$")
+    @Pattern(regexp = "^([0-9]{10}|[0-9]{12})$", message = "inn should contains 10 or 12 digits only")
     public String getInn() {
         return inn;
     }
@@ -33,16 +36,17 @@ public class OrganizationFilterDto implements Serializable {
         this.inn = inn;
     }
 
-    public Bool isActive() {
+    @JsonProperty(value = "isActive")
+    public Boolean isActive() {
         return active;
     }
 
-    public void setActive(Bool active) {
+    public void setActive(Boolean active) {
         this.active = active;
     }
 
     @Override
     public String toString() {
-        return String.format("OrganizationFilterDto[name=%s, inn=%s, active=%s]", name, inn, active);
+        return String.format("OrganizationFilterDto{name=%s, inn=%s, active=%s}", name, inn, active);
     }
 }
