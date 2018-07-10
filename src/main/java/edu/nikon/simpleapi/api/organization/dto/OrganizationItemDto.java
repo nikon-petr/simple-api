@@ -1,17 +1,26 @@
 package edu.nikon.simpleapi.api.organization.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import edu.nikon.simpleapi.api.common.dto.ApiResponseDto;
+import edu.nikon.simpleapi.api.common.response.Response;
 import io.swagger.annotations.ApiModel;
 
 import java.io.Serializable;
 
-@ApiModel(value = "OrganizationItem", parent = ApiResponseDto.class)
+@ApiModel("OrganizationItem")
 public class OrganizationItemDto implements Serializable {
 
     private long id;
     private String name;
-    private boolean active;
+    private Boolean active;
+
+    public OrganizationItemDto() {
+    }
+
+    public OrganizationItemDto(long id, String name, Boolean active) {
+        this.id = id;
+        this.name = name;
+        this.active = active;
+    }
 
     public long getId() {
         return id;
@@ -30,16 +39,21 @@ public class OrganizationItemDto implements Serializable {
     }
 
     @JsonProperty("isActive")
-    public boolean isActive() {
+    public Boolean isActive() {
         return active;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(Boolean active) {
         this.active = active;
     }
 
     @Override
     public String toString() {
-        return String.format("OrganizationItem{id=%s, name=%s, active=%s}", id, name, active);
+        final StringBuilder sb = new StringBuilder("OrganizationItemDto{");
+        sb.append("id=").append(id);
+        sb.append(", name='").append(name).append('\'');
+        sb.append(", active=").append(active);
+        sb.append('}');
+        return sb.toString();
     }
 }

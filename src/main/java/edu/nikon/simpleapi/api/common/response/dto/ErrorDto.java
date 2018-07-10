@@ -1,4 +1,4 @@
-package edu.nikon.simpleapi.api.common.dto;
+package edu.nikon.simpleapi.api.common.response.dto;
 
 import java.util.List;
 
@@ -20,6 +20,9 @@ public class ErrorDto {
 
     @Override
     public String toString() {
-        return String.format("ErrorDto{message=%s}", messages);
+        final StringBuilder sb = new StringBuilder("ErrorDto{");
+        sb.append("messages=").append(messages);
+        sb.append('}');
+        return sb.toString();
     }
 }

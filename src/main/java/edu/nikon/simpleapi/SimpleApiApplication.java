@@ -25,5 +25,4 @@ public class SimpleApiApplication {
         filterRegistrationBean.setEnabled(false);
         return filterRegistrationBean;
     }
-
 }

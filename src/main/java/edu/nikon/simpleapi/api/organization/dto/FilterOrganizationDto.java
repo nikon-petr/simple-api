@@ -5,19 +5,18 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 @ApiModel("OrganizationFilter")
-public class OrganizationFilterDto {
+public class FilterOrganizationDto {
 
     private String name;
     private String inn;
     private Boolean active;
 
-    @NotNull(message = "name is required")
-    @Pattern(regexp = "^(?!\\s*$).+", message = "name should not be empty")
-    @Length(max = 255, message = "name length should not be greater than 255 characters")
+    @NotBlank(message = "Name is required and should not be empty")
+    @Length(max = 20, message = "Name length should be less than 20 characters")
     @ApiModelProperty(required = true)
     public String getName() {
         return name;
@@ -27,7 +26,7 @@ public class OrganizationFilterDto {
         this.name = name;
     }
 
-    @Pattern(regexp = "^([0-9]{10}|[0-9]{12})$", message = "inn should contains 10 or 12 digits only")
+    @Pattern(regexp = "^([0-9]{10}|[0-9]{12})$", message = "INN is invalid")
     public String getInn() {
         return inn;
     }
@@ -47,6 +46,11 @@ public class OrganizationFilterDto {
 
     @Override
     public String toString() {
-        return String.format("OrganizationFilterDto{name=%s, inn=%s, active=%s}", name, inn, active);
+        final StringBuilder sb = new StringBuilder("FilterOrganizationDto{");
+        sb.append("name='").append(name).append('\'');
+        sb.append(", inn='").append(inn).append('\'');
+        sb.append(", active=").append(active);
+        sb.append('}');
+        return sb.toString();
     }
 }

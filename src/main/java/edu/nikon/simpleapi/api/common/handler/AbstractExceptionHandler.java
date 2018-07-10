@@ -1,7 +1,7 @@
 package edu.nikon.simpleapi.api.common.handler;
 
-import edu.nikon.simpleapi.api.common.dto.ApiResponseDto;
-import edu.nikon.simpleapi.api.common.dto.ErrorDto;
+import edu.nikon.simpleapi.api.common.response.Response;
+import edu.nikon.simpleapi.api.common.response.dto.ErrorDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,13 +12,13 @@ public abstract class AbstractExceptionHandler {
 
     private final Logger logger = LoggerFactory.getLogger(AbstractExceptionHandler.class);
 
-    protected ApiResponseDto handleError(List<String> errorMessages) {
+    protected Response handleError(List<String> errorMessages) {
         ErrorDto error = new ErrorDto(errorMessages);
         logger.debug(error.toString());
-        return new ApiResponseDto(error);
+        return Response.error(error);
     }
 
-    protected ApiResponseDto handleInternalError(Exception e) {
+    protected Response handleInternalError(Exception e) {
         logger.error("Internal server error", e);
         return handleError(Collections.singletonList("Internal server error"));
     }

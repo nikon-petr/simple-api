@@ -1,0 +1,67 @@
+databaseChangeLog:
+    - changeSet:
+        id: 002
+        author: nikon-petr
+        changes:
+            - createTable:
+                tableName: organization
+                columns:
+                    - column:
+                        name: id
+                        type: bigint
+                        autoIncrement: true
+                        constraints:
+                            primaryKey: true
+                    - column:
+                        name: version
+                        type: bigint
+                        constraints:
+                            nullable: false
+                    - column:
+                        name: name
+                        type: varchar(20)
+                        constraints:
+                            nullable: false
+                    - column:
+                        name: full_name
+                        type: varchar(75)
+                        constraints:
+                            nullable: false
+                    - column:
+                        name: inn
+                        type: varchar(12)
+                        constraints:
+                            nullable: false
+                    - column:
+                        name: kpp
+                        type: varchar(9)
+                        constraints:
+                            nullable: false
+                    - column:
+                        name: address
+                        type: varchar(175)
+                        constraints:
+                            nullable: false
+                    - column:
+                        name: phone
+                        type: varchar(30)
+                    - column:
+                        name: active
+                        type: boolean
+            - addUniqueConstraint:
+                constraintName: uniq_inn_kpp
+                columnNames: inn, kpp
+                tableName: organization
+            - sql:
+                comment: Add inn check contraint
+                sql: >
+                    alter table organization
+                        add constraint check_inn check (length(inn) = 10 or length(inn) = 12);
+            - sql:
+                comment: Add kpp check contraint
+                sql: >
+                    alter table organization
+                        add constraint check_kpp check (length(kpp) = 9);
+        rollback:
+            - dropTable:
+                tableName: organization

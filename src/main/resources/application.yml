@@ -11,14 +11,17 @@ spring:
         database-platform: org.hibernate.dialect.PostgreSQL9Dialect
         properties:
             hibernate:
+                format_sql: true
                 temp:
                     use_jdbc_metadata_defaults: false
         open-in-view: false
+        show-sql: true
     datasource:
         url: jdbc:postgresql://localhost:5432/simpleapi_app_db
         username: simpleapi_app
         data-password: q1w2e3
         driver-class-name: org.postgresql.Driver
+        initialization-mode: never
     jackson:
         serialization:
             INDENT_OUTPUT: true
@@ -27,7 +30,7 @@ spring:
     liquibase:
         change-log: classpath:/liquibase/master.yml
     resources:
-      add-mappings: false
+        add-mappings: false
 server:
     port: 8080
     error:

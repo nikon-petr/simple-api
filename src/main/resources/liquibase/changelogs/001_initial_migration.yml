@@ -1,6 +1,6 @@
 databaseChangeLog:
     - changeSet:
-        id: 1
-        author: nikon
+        id: 001
+        author: nikon-petr
         changes:
             - empty: {}

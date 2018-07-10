@@ -1,4 +1,7 @@
 databaseChangeLog:
     - include:
         relativeToChangelogFile: true
-        file: ./changelogs/001_empty.yml
+        file: ./changelogs/001_initial_migration.yml
+    - include:
+        relativeToChangelogFile: true
+        file: ./changelogs/002_add_organization_table.yml
