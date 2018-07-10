@@ -18,7 +18,8 @@ public abstract class AbstractExceptionHandler {
         return new ApiResponseDto(error);
     }
 
-    protected ApiResponseDto handleInternalError() {
+    protected ApiResponseDto handleInternalError(Exception e) {
+        logger.error("Internal server error", e);
         return handleError(Collections.singletonList("Internal server error"));
     }
 }

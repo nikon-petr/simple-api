@@ -10,9 +10,8 @@ Configuration:
             name: Console_Appender
             target: SYSTEM_OUT
             PatternLayout:
-                pattern: >
-                    %highlight{[%-5level]}{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=black, DEBUG=green bold, TRACE=blue}
-                    %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %cyan{%logger{1}} - %msg %style{%throwable{full}}{red, bold}
+                pattern: "%highlight{[%-5level]}{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=black, DEBUG=green bold, TRACE=blue} \
+                    %d{yyyy-MM-dd HH:mm:ss.SSS} [%10t] %cyan{%logger{1}} - %msg%n%style{%throwable{full}}{red, bold}"
         File:
             name: File_Appender
             fileName: ${log-path}/logfile.log

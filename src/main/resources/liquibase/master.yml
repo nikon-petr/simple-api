@@ -1,3 +1,4 @@
 databaseChangeLog:
-  - includeAll:
-      path: liquibase/changelogs
+    - include:
+        relativeToChangelogFile: true
+        file: ./changelogs/001_empty.yml

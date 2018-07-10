@@ -4,8 +4,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 import edu.nikon.simpleapi.api.common.dto.ApiResponseDto;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -28,9 +27,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestControllerAdvice
+@Order(1)
 public class SpringExceptionHandler extends AbstractExceptionHandler {
-
-    private final Logger logger = LoggerFactory.getLogger(SpringExceptionHandler.class);
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -38,7 +36,6 @@ public class SpringExceptionHandler extends AbstractExceptionHandler {
         List<String> errorMessages = e.getBindingResult().getFieldErrors().stream()
                 .map(fe -> String.format("Invalid field: %s, cause: %s", fe.getField(), fe.getDefaultMessage()))
                 .collect(Collectors.toList());
-        logger.debug(e.getBindingResult().getGlobalErrors().toString());
         return handleError(errorMessages);
     }
 
@@ -48,7 +45,7 @@ public class SpringExceptionHandler extends AbstractExceptionHandler {
         String fieldName = e.getPath().stream()
                 .map(reference -> reference.getFieldName())
                 .reduce((fullName, name) -> fullName + "." + name)
-                .get();
+                .orElse("unknown");
         String fieldTargetTypeName = e.getTargetType().getSimpleName().toLowerCase();
         String errorMessage = String.format("Field %s is not valid for type %s", fieldName, fieldTargetTypeName);
         return handleError(Collections.singletonList(errorMessage));
@@ -60,7 +57,7 @@ public class SpringExceptionHandler extends AbstractExceptionHandler {
         String fieldName = e.getPath().stream()
                 .map(reference -> reference.getFieldName())
                 .reduce((fullName, name) -> fullName + "." + name)
-                .get();
+                .orElse("unknown");
         String errorMessage = String.format("Field %s is unknown", fieldName);
         return handleError(Collections.singletonList(errorMessage));
     }
@@ -134,6 +131,6 @@ public class SpringExceptionHandler extends AbstractExceptionHandler {
     @ExceptionHandler(HttpMessageNotWritableException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ApiResponseDto handleHttpMessageNotWritableException(HttpMessageNotWritableException e) {
-        return handleInternalError();
+        return handleInternalError(e);
     }
 }
