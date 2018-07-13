@@ -11,7 +11,7 @@ import edu.nikon.simpleapi.api.organization.dto.UpdateOrganizationDto;
 import java.util.List;
 
 /**
- *  Service for {@link Organization} entity
+ * Service for {@link Organization} entity
  */
 public interface OrganizationService {
 

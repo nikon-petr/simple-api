@@ -35,4 +35,31 @@ public class SwaggerConfig {
                 .build()
                 .apiInfo(apiInfo());
     }
+
+    @Bean
+    public Docket officeApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("office")
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("edu.nikon.simpleapi.api.office"))
+                .build();
+    }
+
+    @Bean
+    public Docket userApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("user")
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("edu.nikon.simpleapi.api.user"))
+                .build();
+    }
+
+    @Bean
+    public Docket catalogApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("catalog")
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("edu.nikon.simpleapi.api.catalog"))
+                .build();
+    }
 }

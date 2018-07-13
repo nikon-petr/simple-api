@@ -124,7 +124,8 @@ public class SpringExceptionHandler extends AbstractExceptionHandler {
     }
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-    public ResponseEntity<Response> handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
+    public ResponseEntity<Response> handleHttpRequestMethodNotSupportedException(
+            HttpRequestMethodNotSupportedException e) {
         String errorMessage = String.format("Method %s not allowed", e.getMethod());
         HttpHeaders headers = new HttpHeaders();
         if (e.getSupportedMethods().length > 0) {

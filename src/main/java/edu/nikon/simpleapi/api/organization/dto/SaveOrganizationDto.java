@@ -3,10 +3,10 @@ package edu.nikon.simpleapi.api.organization.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @ApiModel("SaveOrganization")
 public class SaveOrganizationDto {
@@ -24,7 +24,7 @@ public class SaveOrganizationDto {
 
     @ApiModelProperty(required = true)
     @NotBlank(message = "Name is required and should not be empty")
-    @Length(max = 20, message = "name length should be less than 20 characters")
+    @Size(max = 20, message = "name length should be less than 20 characters")
     public String getName() {
         return name;
     }
@@ -35,7 +35,7 @@ public class SaveOrganizationDto {
 
     @ApiModelProperty(required = true)
     @NotBlank(message = "Full name is required and should not be empty")
-    @Length(max = 75, message = "Full name length should be less than 75 characters")
+    @Size(max = 75, message = "Full name length should be less than 75 characters")
     public String getFullName() {
         return fullName;
     }
@@ -66,7 +66,7 @@ public class SaveOrganizationDto {
 
     @ApiModelProperty(required = true)
     @NotBlank(message = "Address is required and should not be empty")
-    @Length(max = 175, message = "Address length should be less than 175 characters")
+    @Size(max = 175, message = "Address length should be less than 175 characters")
     public String getAddress() {
         return address;
     }
@@ -76,7 +76,7 @@ public class SaveOrganizationDto {
     }
 
     @Pattern(regexp = "^[0-9]+$", message = "Phone number should contains only digit characters")
-    @Length(max = 30, message = "Phone length should be less than 30 characters")
+    @Size(max = 30, message = "Phone length should be less than 30 characters")
     public String getPhone() {
         return phone;
     }

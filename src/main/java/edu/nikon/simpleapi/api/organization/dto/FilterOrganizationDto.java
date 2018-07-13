@@ -3,10 +3,10 @@ package edu.nikon.simpleapi.api.organization.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @ApiModel("OrganizationFilter")
 public class FilterOrganizationDto {
@@ -16,7 +16,7 @@ public class FilterOrganizationDto {
     private Boolean active;
 
     @NotBlank(message = "Name is required and should not be empty")
-    @Length(max = 20, message = "Name length should be less than 20 characters")
+    @Size(max = 20, message = "Name length should be less than 20 characters")
     @ApiModelProperty(required = true)
     public String getName() {
         return name;

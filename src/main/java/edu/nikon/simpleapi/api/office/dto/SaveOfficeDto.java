@@ -1,76 +1,42 @@
-package edu.nikon.simpleapi.api.organization.dto;
+package edu.nikon.simpleapi.api.office.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-@ApiModel("UpdateOrganization")
-public class UpdateOrganizationDto {
 
-    private long id;
+@ApiModel("SaveOffice")
+public class SaveOfficeDto {
+
     private String name;
-    private String fullName;
-    private String inn;
-    private String kpp;
     private String address;
     private String phone;
     private Boolean active;
 
-    public UpdateOrganizationDto() {
+    public SaveOfficeDto() {
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+    public SaveOfficeDto(String name, String address, String phone, Boolean active) {
+        this.name = name;
+        this.address = address;
+        this.phone = phone;
+        this.active = active;
     }
 
     @ApiModelProperty(required = true)
     @NotBlank(message = "Name is required and should not be empty")
-    @Size(max = 20, message = "name length should be less than 20 characters")
+    @Size(max = 20, message = "Name length should be less than 20 characters")
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    @ApiModelProperty(required = true)
-    @NotBlank(message = "Full name is required and should not be empty")
-    @Size(max = 75, message = "Full name length should be less than 75 characters")
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    @ApiModelProperty(required = true)
-    @Pattern(regexp = "^([0-9]{10}|[0-9]{12})$", message = "INN is invalid")
-    public String getInn() {
-        return inn;
-    }
-
-    public void setInn(String inn) {
-        this.inn = inn;
-    }
-
-    @ApiModelProperty(required = true)
-    @Pattern(regexp = "^[0-9]{9}$", message = "KPP is invalid")
-    public String getKpp() {
-        return kpp;
-    }
-
-    public void setKpp(String kpp) {
-        this.kpp = kpp;
     }
 
     @ApiModelProperty(required = true)
@@ -95,7 +61,7 @@ public class UpdateOrganizationDto {
     }
 
     @JsonProperty(value = "isActive")
-    public Boolean isActive() {
+    public Boolean getActive() {
         return active;
     }
 
@@ -105,12 +71,8 @@ public class UpdateOrganizationDto {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("UpdateOrganizationDto{");
-        sb.append("id=").append(id);
-        sb.append(", name='").append(name).append('\'');
-        sb.append(", fullName='").append(fullName).append('\'');
-        sb.append(", inn='").append(inn).append('\'');
-        sb.append(", kpp='").append(kpp).append('\'');
+        final StringBuilder sb = new StringBuilder("UpdateOfficeDto{");
+        sb.append("name='").append(name).append('\'');
         sb.append(", address='").append(address).append('\'');
         sb.append(", phone='").append(phone).append('\'');
         sb.append(", active=").append(active);

@@ -30,14 +30,8 @@ public class Organization {
     public Organization() {
     }
 
-    public Organization(
-            String name,
-            String fullName,
-            String inn,
-            String kpp,
-            String address,
-            String phone,
-            Boolean isActive) {
+    public Organization(String name, String fullName, String inn, String kpp, String address, String phone,
+                        Boolean isActive) {
         this.name = name;
         this.fullName = fullName;
         this.inn = inn;
@@ -47,15 +41,8 @@ public class Organization {
         this.isActive = isActive;
     }
 
-    public Organization(
-            long id,
-            String name,
-            String fullName,
-            String inn,
-            String kpp,
-            String address,
-            String phone,
-            Boolean isActive) {
+    public Organization(long id, String name, String fullName, String inn, String kpp, String address,
+                        String phone, Boolean isActive) {
         this.id = id;
         this.name = name;
         this.fullName = fullName;

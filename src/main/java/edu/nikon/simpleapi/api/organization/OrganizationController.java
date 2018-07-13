@@ -1,9 +1,8 @@
 package edu.nikon.simpleapi.api.organization;
 
-import edu.nikon.simpleapi.api.common.response.Response;
 import edu.nikon.simpleapi.api.common.response.OperationResults;
+import edu.nikon.simpleapi.api.common.response.Response;
 import edu.nikon.simpleapi.api.common.response.dto.OperationResultDto;
-import edu.nikon.simpleapi.api.organization.domain.Organization;
 import edu.nikon.simpleapi.api.organization.dto.FilterOrganizationDto;
 import edu.nikon.simpleapi.api.organization.dto.OrganizationDetailedDto;
 import edu.nikon.simpleapi.api.organization.dto.OrganizationItemDto;
@@ -16,7 +15,6 @@ import io.swagger.annotations.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -87,7 +85,8 @@ public class OrganizationController {
             @ApiResponse(code = 500, message = "Server error")
     })
     @PostMapping(value = "/update", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
-    public Response<OperationResultDto> updateOrganization(@RequestBody @Validated UpdateOrganizationDto organizationDto) {
+    public Response<OperationResultDto> updateOrganization(
+            @RequestBody @Validated UpdateOrganizationDto organizationDto) {
         logger.debug("Received: {}", organizationDto);
         organizationService.update(organizationDto);
         return Response.operationResult(OperationResults.SUCCESS);

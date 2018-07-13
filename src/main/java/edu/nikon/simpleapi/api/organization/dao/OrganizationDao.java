@@ -49,7 +49,7 @@ public interface OrganizationDao {
     /**
      * Returns true if pair of inn and kpp is unique excluding organization with specified id
      *
-     * @param id id of organization to check uniqueness
+     * @param id  id of organization to check uniqueness
      * @param inn inn of organization to check uniqueness
      * @param kpp kpp of organization to check uniqueness
      * @return is unique
@@ -58,8 +58,8 @@ public interface OrganizationDao {
     boolean isUnique(long id, String inn, String kpp);
 
     /**
-     * @param name organization name
-     * @param inn organization inn
+     * @param name   organization name
+     * @param inn    organization inn
      * @param active organization activity state
      * @return organization with requested name, inn and activity state
      * @see Organization
