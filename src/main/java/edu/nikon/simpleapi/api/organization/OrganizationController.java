@@ -32,7 +32,6 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class OrganizationController {
 
     private final Logger logger = LoggerFactory.getLogger(OrganizationController.class);
-
     private final OrganizationService organizationService;
 
     @Autowired

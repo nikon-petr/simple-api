@@ -62,6 +62,16 @@ databaseChangeLog:
                 sql: >
                     alter table organization
                         add constraint check_kpp check (length(kpp) = 9);
+            - createIndex:
+                indexName: idx_name_inn_active
+                tableName: organization
+                columns:
+                    - column:
+                        name: name
+                    - column:
+                        name: inn
+                    - column:
+                        name: active
         rollback:
             - dropTable:
                 tableName: organization

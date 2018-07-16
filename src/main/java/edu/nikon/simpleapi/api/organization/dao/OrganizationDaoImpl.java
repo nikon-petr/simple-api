@@ -36,8 +36,19 @@ public class OrganizationDaoImpl implements OrganizationDao {
         return query.getResultList();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public boolean exists(long id) {
+    public Optional<Organization> findById(Long id) {
+        Objects.requireNonNull(id);
+        Organization organization = em.find(Organization.class, id);
+        return Optional.ofNullable(organization);
+    }
+
+    @Override
+    public boolean exists(Long id) {
+        Objects.requireNonNull(id);
         String queryString = "select case when (count(o) > 0) " +
                 "then true " +
                 "else false end " +
@@ -51,11 +62,23 @@ public class OrganizationDaoImpl implements OrganizationDao {
      * {@inheritDoc}
      */
     @Override
-    public Optional<Organization> findById(long id) {
-        Organization organization = em.find(Organization.class, id);
-        return Optional.ofNullable(organization);
+    public void save(Organization entity) {
+        Objects.requireNonNull(entity);
+        em.persist(entity);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Organization update(Organization entity) {
+        Objects.requireNonNull(entity);
+        return em.merge(entity);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isUnique(String inn, String kpp) {
         Objects.requireNonNull(inn);
@@ -71,6 +94,9 @@ public class OrganizationDaoImpl implements OrganizationDao {
         return query.getSingleResult();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isUnique(long id, String inn, String kpp) {
         Objects.requireNonNull(inn);
@@ -96,21 +122,6 @@ public class OrganizationDaoImpl implements OrganizationDao {
         Objects.requireNonNull(name);
         TypedQuery<Organization> query = em.createQuery(buildFilterQuery(name, inn, active));
         return query.getResultList();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void save(Organization o) {
-        Objects.requireNonNull(o);
-        em.persist(o);
-    }
-
-    @Override
-    public Organization update(Organization o) {
-        Objects.requireNonNull(o);
-        return em.merge(o);
     }
 
     private CriteriaQuery<Organization> buildFilterQuery(String name, String inn, Boolean active) {

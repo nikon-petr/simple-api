@@ -1,10 +1,13 @@
 package edu.nikon.simpleapi.api.organization.domain;
 
+import edu.nikon.simpleapi.api.common.embeddable.Contact;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
@@ -13,7 +16,8 @@ import java.util.Objects;
 @Entity
 @Table(
         name = "organization",
-        uniqueConstraints = @UniqueConstraint(name = "unique_inn_kpp", columnNames = {"inn", "kpp"})
+        uniqueConstraints = @UniqueConstraint(name = "unique_inn_kpp", columnNames = {"inn", "kpp"}),
+        indexes = @Index(name = "idx_name_inn_active", columnList = "name,inn,active")
 )
 public class Organization {
 
@@ -23,33 +27,29 @@ public class Organization {
     private String fullName;
     private String inn;
     private String kpp;
-    private String address;
-    private String phone;
+    private Contact contact;
     private Boolean isActive;
 
     public Organization() {
     }
 
-    public Organization(String name, String fullName, String inn, String kpp, String address, String phone,
+    public Organization(String name, String fullName, String inn, String kpp, Contact contact,
                         Boolean isActive) {
         this.name = name;
         this.fullName = fullName;
         this.inn = inn;
         this.kpp = kpp;
-        this.address = address;
-        this.phone = phone;
+        this.contact = contact;
         this.isActive = isActive;
     }
 
-    public Organization(long id, String name, String fullName, String inn, String kpp, String address,
-                        String phone, Boolean isActive) {
+    public Organization(long id, String name, String fullName, String inn, String kpp, Contact contact, Boolean isActive) {
         this.id = id;
         this.name = name;
         this.fullName = fullName;
         this.inn = inn;
         this.kpp = kpp;
-        this.address = address;
-        this.phone = phone;
+        this.contact = contact;
         this.isActive = isActive;
     }
 
@@ -64,11 +64,11 @@ public class Organization {
     }
 
     @Version
-    public long getVersion() {
+    protected long getVersion() {
         return version;
     }
 
-    public void setVersion(long version) {
+    protected void setVersion(long version) {
         this.version = version;
     }
 
@@ -108,22 +108,12 @@ public class Organization {
         this.kpp = kpp;
     }
 
-    @Column(nullable = false, length = 175)
-    public String getAddress() {
-        return address;
+    public Contact getContact() {
+        return contact;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    @Column(length = 30)
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setContact(Contact contact) {
+        this.contact = contact;
     }
 
     @Column(name = "active")
@@ -144,14 +134,13 @@ public class Organization {
                 Objects.equals(fullName, that.fullName) &&
                 Objects.equals(inn, that.inn) &&
                 Objects.equals(kpp, that.kpp) &&
-                Objects.equals(address, that.address) &&
-                Objects.equals(phone, that.phone) &&
+                Objects.equals(contact, that.contact) &&
                 Objects.equals(isActive, that.isActive);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, fullName, inn, kpp, address, phone, isActive);
+        return Objects.hash(name, fullName, inn, kpp, contact, isActive);
     }
 
     @Override
@@ -163,8 +152,7 @@ public class Organization {
         sb.append(", fullName='").append(fullName).append('\'');
         sb.append(", inn='").append(inn).append('\'');
         sb.append(", kpp='").append(kpp).append('\'');
-        sb.append(", address='").append(address).append('\'');
-        sb.append(", phone='").append(phone).append('\'');
+        sb.append(", contact=").append(contact);
         sb.append(", isActive=").append(isActive);
         sb.append('}');
         return sb.toString();

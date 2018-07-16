@@ -1,5 +1,6 @@
 package edu.nikon.simpleapi.api.organization.dto.mapper;
 
+import edu.nikon.simpleapi.api.common.embeddable.Contact;
 import edu.nikon.simpleapi.api.organization.domain.Organization;
 import edu.nikon.simpleapi.api.organization.dto.OrganizationDetailedDto;
 import edu.nikon.simpleapi.api.organization.dto.OrganizationItemDto;
@@ -42,8 +43,8 @@ public class OrganizationMapper {
                 o.getFullName(),
                 o.getInn(),
                 o.getKpp(),
-                o.getAddress(),
-                o.getPhone(),
+                o.getContact().getAddress(),
+                o.getContact().getPhone(),
                 o.getActive()
         );
     }
@@ -61,8 +62,7 @@ public class OrganizationMapper {
                 dto.getFullName(),
                 dto.getInn(),
                 dto.getKpp(),
-                dto.getAddress(),
-                dto.getPhone(),
+                new Contact(dto.getAddress(), dto.getPhone()),
                 dto.isActive()
         );
     }
@@ -74,8 +74,7 @@ public class OrganizationMapper {
                 dto.getFullName(),
                 dto.getInn(),
                 dto.getKpp(),
-                dto.getAddress(),
-                dto.getPhone(),
+                new Contact(dto.getAddress(), dto.getPhone()),
                 dto.isActive()
         );
 
