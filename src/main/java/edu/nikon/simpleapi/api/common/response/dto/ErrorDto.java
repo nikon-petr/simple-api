@@ -2,6 +2,9 @@ package edu.nikon.simpleapi.api.common.response.dto;
 
 import java.util.List;
 
+/**
+ * Error response body
+ */
 public class ErrorDto {
 
     private List<String> messages;

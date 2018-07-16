@@ -24,20 +24,9 @@ public class User {
     public User() {
     }
 
-    public User(
-            long id,
-            String firstName,
-            String secondName,
-            String middleName,
-            String position,
-            String phone,
-            Long docCode,
-            String docName,
-            String docNumber,
-            Date docDate,
-            Long citizenshipCode,
-            Boolean identified,
-            Long officeId) {
+    public User(long id, String firstName, String secondName, String middleName, String position, String phone,
+                Long docCode, String docName, String docNumber, Date docDate, Long citizenshipCode, Boolean identified,
+                Long officeId) {
         this.id = id;
         this.firstName = firstName;
         this.secondName = secondName;
@@ -53,19 +42,9 @@ public class User {
         this.officeId = officeId;
     }
 
-    public User(
-            String firstName,
-            String secondName,
-            String middleName,
-            String position,
-            String phone,
-            Long docCode,
-            String docName,
-            String docNumber,
-            Date docDate,
-            Long citizenshipCode,
-            Boolean identified,
-            Long officeId) {
+    public User(String firstName, String secondName, String middleName, String position, String phone, Long docCode,
+                String docName, String docNumber, Date docDate, Long citizenshipCode, Boolean identified,
+                Long officeId) {
         this.id = idGenerator.getAndIncrement();
         this.firstName = firstName;
         this.secondName = secondName;

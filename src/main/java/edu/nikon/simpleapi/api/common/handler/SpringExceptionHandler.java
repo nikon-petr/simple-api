@@ -32,6 +32,9 @@ import static org.springframework.http.HttpStatus.NOT_ACCEPTABLE;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.UNSUPPORTED_MEDIA_TYPE;
 
+/**
+ * Handler for framework exceptions
+ */
 @RestControllerAdvice
 @Order(1)
 public class SpringExceptionHandler extends AbstractExceptionHandler {

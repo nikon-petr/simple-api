@@ -1,5 +1,8 @@
 package edu.nikon.simpleapi.api.common.response;
 
+/**
+ * API operation results
+ */
 public enum OperationResults {
     SUCCESS("success"),
     ERROR("error");

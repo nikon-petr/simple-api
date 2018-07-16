@@ -4,6 +4,9 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.util.Objects;
 
+/**
+ * Contact object
+ */
 @Embeddable
 public class Contact {
 
