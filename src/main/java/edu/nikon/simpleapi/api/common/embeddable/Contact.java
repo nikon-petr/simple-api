@@ -13,11 +13,11 @@ public class Contact {
     private String address;
     private String phone;
 
-    public Contact() {
+    protected Contact() {
     }
 
     public Contact(String address, String phone) {
-        this.address = address;
+        setAddress(address);
         this.phone = phone;
     }
 
@@ -27,7 +27,7 @@ public class Contact {
     }
 
     public void setAddress(String address) {
-        this.address = address;
+        this.address = Objects.requireNonNull(address);
     }
 
     @Column(name = "phone", length = 30)

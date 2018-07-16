@@ -57,26 +57,26 @@ public class OrganizationMapper {
      * @see SaveOrganizationDto
      */
     public static Function<SaveOrganizationDto, Organization> mapSaveDtoToEntity() {
-        return dto -> new Organization(
-                dto.getName(),
-                dto.getFullName(),
-                dto.getInn(),
-                dto.getKpp(),
-                new Contact(dto.getAddress(), dto.getPhone()),
-                dto.isActive()
-        );
+        return dto -> new Organization.Builder()
+                .setName(dto.getName())
+                .setFullName(dto.getFullName())
+                .setInn(dto.getInn())
+                .setKpp(dto.getKpp())
+                .setContact(new Contact(dto.getAddress(), dto.getPhone()))
+                .setActive(dto.isActive())
+                .build();
     }
 
     public static Function<UpdateOrganizationDto, Organization> mapUpdateDtoToEntity() {
-        return dto -> new Organization(
-                dto.getId(),
-                dto.getName(),
-                dto.getFullName(),
-                dto.getInn(),
-                dto.getKpp(),
-                new Contact(dto.getAddress(), dto.getPhone()),
-                dto.isActive()
-        );
+        return dto -> new Organization.Builder()
+                .setId(dto.getId())
+                .setName(dto.getName())
+                .setFullName(dto.getFullName())
+                .setInn(dto.getInn())
+                .setKpp(dto.getKpp())
+                .setContact(new Contact(dto.getAddress(), dto.getPhone()))
+                .setActive(dto.isActive())
+                .build();
 
     }
 }

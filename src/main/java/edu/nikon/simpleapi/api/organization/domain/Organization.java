@@ -28,29 +28,19 @@ public class Organization {
     private String inn;
     private String kpp;
     private Contact contact;
-    private Boolean isActive;
+    private Boolean active;
 
-    public Organization() {
+    protected Organization() {
     }
 
-    public Organization(String name, String fullName, String inn, String kpp, Contact contact,
-                        Boolean isActive) {
-        this.name = name;
-        this.fullName = fullName;
-        this.inn = inn;
-        this.kpp = kpp;
-        this.contact = contact;
-        this.isActive = isActive;
-    }
-
-    public Organization(long id, String name, String fullName, String inn, String kpp, Contact contact, Boolean isActive) {
+    private Organization(long id, String name, String fullName, String inn, String kpp, Contact contact, Boolean active) {
         this.id = id;
-        this.name = name;
-        this.fullName = fullName;
-        this.inn = inn;
-        this.kpp = kpp;
-        this.contact = contact;
-        this.isActive = isActive;
+        setName(name);
+        setFullName(fullName);
+        setInn(inn);
+        setKpp(kpp);
+        setContact(contact);
+        this.active = active;
     }
 
     @Id
@@ -78,7 +68,7 @@ public class Organization {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = Objects.requireNonNull(name, "Name can not be null");
     }
 
     @Column(name = "full_name", nullable = false, length = 75)
@@ -87,7 +77,7 @@ public class Organization {
     }
 
     public void setFullName(String fullName) {
-        this.fullName = fullName;
+        this.fullName =  Objects.requireNonNull(fullName, "Full name can not be null");
     }
 
     @Column(nullable = false, length = 12)
@@ -96,7 +86,7 @@ public class Organization {
     }
 
     public void setInn(String inn) {
-        this.inn = inn;
+        this.inn = Objects.requireNonNull(inn, "INN can not be null");
     }
 
     @Column(nullable = false, length = 9)
@@ -105,7 +95,7 @@ public class Organization {
     }
 
     public void setKpp(String kpp) {
-        this.kpp = kpp;
+        this.kpp = Objects.requireNonNull(kpp, "KPP can not be null");
     }
 
     public Contact getContact() {
@@ -113,16 +103,16 @@ public class Organization {
     }
 
     public void setContact(Contact contact) {
-        this.contact = contact;
+        this.contact = Objects.requireNonNull(contact, "Contact can not be null");
     }
 
-    @Column(name = "active")
+    @Column
     public Boolean getActive() {
-        return isActive;
+        return active;
     }
 
     public void setActive(Boolean active) {
-        isActive = active;
+        this.active = active;
     }
 
     @Override
@@ -135,12 +125,12 @@ public class Organization {
                 Objects.equals(inn, that.inn) &&
                 Objects.equals(kpp, that.kpp) &&
                 Objects.equals(contact, that.contact) &&
-                Objects.equals(isActive, that.isActive);
+                Objects.equals(active, that.active);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, fullName, inn, kpp, contact, isActive);
+        return Objects.hash(name, fullName, inn, kpp, contact, active);
     }
 
     @Override
@@ -153,8 +143,58 @@ public class Organization {
         sb.append(", inn='").append(inn).append('\'');
         sb.append(", kpp='").append(kpp).append('\'');
         sb.append(", contact=").append(contact);
-        sb.append(", isActive=").append(isActive);
+        sb.append(", active=").append(active);
         sb.append('}');
         return sb.toString();
+    }
+
+    public static class Builder {
+
+        private long id;
+        private String name;
+        private String fullName;
+        private String inn;
+        private String kpp;
+        private Contact contact;
+        private Boolean active;
+
+        public Organization build() {
+            return new Organization(id, name, fullName, inn, kpp, contact, active);
+        }
+
+        public Builder setId(long id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder setName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder setFullName(String fullName) {
+            this.fullName = fullName;
+            return this;
+        }
+
+        public Builder setInn(String inn) {
+            this.inn = inn;
+            return this;
+        }
+
+        public Builder setKpp(String kpp) {
+            this.kpp = kpp;
+            return this;
+        }
+
+        public Builder setContact(Contact contact) {
+            this.contact = contact;
+            return this;
+        }
+
+        public Builder setActive(Boolean active) {
+            this.active = active;
+            return this;
+        }
     }
 }
