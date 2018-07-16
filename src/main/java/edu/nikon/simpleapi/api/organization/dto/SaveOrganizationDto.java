@@ -55,7 +55,7 @@ public class SaveOrganizationDto {
     }
 
     @ApiModelProperty(required = true)
-    @Pattern(regexp = "^[0-9]{9}$", message = "KPP is invalid")
+    @Pattern(regexp = "^[0-9]{4}[0-9A-Z]{2}[0-9]{3}$", message = "KPP is invalid")
     public String getKpp() {
         return kpp;
     }
