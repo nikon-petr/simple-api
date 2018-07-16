@@ -2,12 +2,38 @@ package edu.nikon.simpleapi.api.office.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * DTO class used to represent detailed office data
+ */
 public class OfficeDetailedDto {
 
+    /**
+     * office id
+     */
     private long id;
+
+
+    /**
+     * office name
+     */
     private String name;
+
+
+    /**
+     * office address
+     */
     private String address;
+
+
+    /**
+     * office phone
+     */
     private String phone;
+
+
+    /**
+     * office activity state
+     */
     private Boolean active;
 
     public OfficeDetailedDto() {

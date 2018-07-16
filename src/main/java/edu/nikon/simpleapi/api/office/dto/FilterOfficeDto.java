@@ -8,12 +8,30 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+/**
+ * DTO class used to transfer parameters necessary for filtering offices
+ */
 @ApiModel("FilterOffice")
 public class FilterOfficeDto {
 
+    /**
+     * id of organization related to the office
+     */
     private Long orgId;
+
+    /**
+     * office name
+     */
     private String name;
+
+    /**
+     * office phone
+     */
     private String phone;
+
+    /**
+     * office activity state
+     */
     private Boolean isActive;
 
     public FilterOfficeDto() {

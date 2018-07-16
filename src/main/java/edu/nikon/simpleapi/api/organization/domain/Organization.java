@@ -2,16 +2,22 @@ package edu.nikon.simpleapi.api.organization.domain;
 
 import edu.nikon.simpleapi.api.common.embeddable.Contact;
 
+import edu.nikon.simpleapi.api.office.domain.Office;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Index;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * Organization entity
@@ -64,6 +70,7 @@ public class Organization {
      * organization activity state
      */
     private Boolean active;
+    private Set<Office> offices;
 
     protected Organization() {
     }
@@ -150,6 +157,32 @@ public class Organization {
         this.active = active;
     }
 
+    @OneToMany(
+            mappedBy = "organization",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    public Set<Office> getOffices() {
+        if (offices == null) {
+            offices = new HashSet<>();
+        }
+        return offices;
+    }
+
+    protected void setOffices(Set<Office> offices) {
+        this.offices = offices;
+    }
+
+    public void addOffice(Office office) {
+        getOffices().add(office);
+        office.setOrganization(this);
+    }
+
+    public void removeOffice(Office office) {
+        getOffices().remove(office);
+        office.setOrganization(null);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -179,6 +212,7 @@ public class Organization {
         sb.append(", kpp='").append(kpp).append('\'');
         sb.append(", contact=").append(contact);
         sb.append(", active=").append(active);
+        sb.append(", offices=[...Office{...}]");
         sb.append('}');
         return sb.toString();
     }

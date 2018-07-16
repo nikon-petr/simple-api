@@ -1,5 +1,5 @@
 /**
- * Root office API package
+ * Spring controller classes for office api
  *
  * @author nikon-petr
  */

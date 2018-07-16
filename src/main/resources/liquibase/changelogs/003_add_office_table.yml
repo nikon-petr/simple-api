@@ -1,0 +1,54 @@
+databaseChangeLog:
+    - changeSet:
+        id: 003
+        author: nikon-petr
+        changes:
+            - createTable:
+                tableName: office
+                columns:
+                    - column:
+                        name: id
+                        type: bigint
+                        autoIncrement: true
+                        constraints:
+                            primaryKey: true
+                    - column:
+                        name: version
+                        type: bigint
+                        constraints:
+                            nullable: false
+                    - column:
+                        name: name
+                        type: varchar(20)
+                        constraints:
+                            nullable: false
+                    - column:
+                        name: address
+                        type: varchar(175)
+                        constraints:
+                            nullable: false
+                    - column:
+                        name: phone
+                        type: varchar(30)
+                    - column:
+                        name: active
+                        type: boolean
+                    - column:
+                        name: organization_id
+                        type: bigint
+                        constraints:
+                            references: organization(id)
+                            foreignKeyName: office_organization_fk
+                            deleteCascade: true
+            - createIndex:
+                indexName: idx_organization_id_name_phone_active
+                tableName: office
+                columns:
+                    - column:
+                        name: organization_id
+                    - column:
+                        name: name
+                    - column:
+                        name: phone
+                    - column:
+                        name: active

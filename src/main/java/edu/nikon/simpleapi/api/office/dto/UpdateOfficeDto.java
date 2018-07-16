@@ -9,23 +9,52 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+/**
+ * DTO class used to receive office data for updating
+ */
 @ApiModel("UpdateOffice")
 public class UpdateOfficeDto {
 
+    /**
+     * office id
+     */
     private long id;
+
+    /**
+     * office name
+     */
     private String name;
+
+    /**
+     * office address
+     */
     private String address;
+
+    /**
+     * office phone
+     */
     private String phone;
+
+    /**
+     * organization related to office
+     */
+    private Long organizationId;
+
+    /**
+     * office activity state
+     */
     private Boolean active;
 
     public UpdateOfficeDto() {
     }
 
-    public UpdateOfficeDto(long id, String name, String address, String phone, Boolean active) {
+    public UpdateOfficeDto(long id, String name, String address, String phone, Long organizationId,
+                           Boolean active) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.phone = phone;
+        this.organizationId = organizationId;
         this.active = active;
     }
 
@@ -71,6 +100,15 @@ public class UpdateOfficeDto {
         this.phone = phone;
     }
 
+    public Long getOrganizationId() {
+        return organizationId;
+    }
+
+    public UpdateOfficeDto setOrganizationId(Long organizationId) {
+        this.organizationId = organizationId;
+        return this;
+    }
+
     @JsonProperty(value = "isActive")
     public Boolean getActive() {
         return active;
@@ -87,6 +125,7 @@ public class UpdateOfficeDto {
         sb.append(", name='").append(name).append('\'');
         sb.append(", address='").append(address).append('\'');
         sb.append(", phone='").append(phone).append('\'');
+        sb.append(", organizationId=").append(organizationId);
         sb.append(", active=").append(active);
         sb.append('}');
         return sb.toString();

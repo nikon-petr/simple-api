@@ -3,6 +3,9 @@ package edu.nikon.simpleapi.api.office.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 
+/**
+ * DTO class used to represent short office data in list
+ */
 @ApiModel("OfficeItem")
 public class OfficeItemDto {
 

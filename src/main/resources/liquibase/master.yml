@@ -5,3 +5,6 @@ databaseChangeLog:
     - include:
         relativeToChangelogFile: true
         file: ./changelogs/002_add_organization_table.yml
+    - include:
+        relativeToChangelogFile: true
+        file: ./changelogs/003_add_office_table.yml
