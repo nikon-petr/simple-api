@@ -8,3 +8,9 @@ databaseChangeLog:
     - include:
         relativeToChangelogFile: true
         file: ./changelogs/003_add_office_table.yml
+    - include:
+        relativeToChangelogFile: true
+        file: ./changelogs/004_add_document_type_table.yml
+    - include:
+        relativeToChangelogFile: true
+        file: ./changelogs/005_add_country_table.yml

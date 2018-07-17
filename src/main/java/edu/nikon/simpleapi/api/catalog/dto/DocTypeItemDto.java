@@ -2,25 +2,35 @@ package edu.nikon.simpleapi.api.catalog.dto;
 
 import io.swagger.annotations.ApiModel;
 
-@ApiModel("Doc")
-public class DocItemDto {
+/**
+ * DTO class used to represent document types in list
+ */
+@ApiModel("DocumentType")
+public class DocTypeItemDto {
 
-    private long code;
+    /**
+     * document code
+     */
+    private String code;
+
+    /**
+     * document name
+     */
     private String name;
 
-    public DocItemDto() {
+    public DocTypeItemDto() {
     }
 
-    public DocItemDto(long code, String name) {
+    public DocTypeItemDto(String code, String name) {
         this.code = code;
         this.name = name;
     }
 
-    public long getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(long code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
@@ -34,7 +44,7 @@ public class DocItemDto {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("DocItemDto{");
+        final StringBuilder sb = new StringBuilder("DocTypeItemDto{");
         sb.append("code=").append(code);
         sb.append(", name='").append(name).append('\'');
         sb.append('}');

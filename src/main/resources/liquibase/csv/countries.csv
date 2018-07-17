@@ -1,0 +1,242 @@
+code;name;en_name
+8;Албания;Albania
+12;Алжир;Algeria
+16;Американский Самоа;American Samoa
+20;Андорра;Andorra
+24;Ангола;Angola
+660;Ангилья;Anguilla
+10;Антарктика;Antarctica
+28;Антигуа и Барбуда;Antigua and Barbuda
+32;Аргентина;Argentina
+51;Армения;Armenia
+533;Аруба;Aruba
+36;Австралия;Australia
+40;Австрия;Austria
+31;Азербайджан;Azerbaijan
+44;Багамские острова;Bahamas
+48;Бахрейн;Bahrain
+50;Бангладеш;Bangladesh
+52;Барбадос;Barbados
+112;Беларусь;Belarus
+56;Бельгия;Belgium
+84;Белиз;Belize
+204;Бенин;Benin
+60;Бермуды;Bermuda
+64;Бутан;Bhutan
+68;Боливия;Bolivia
+70;Босния и Герцеговина;Bosnia and Herzegovina
+72;Ботсвана;Botswana
+74;остров Буве;Bouvet Island
+76;Бразилия;Brazil
+86;Британские территории Индийского океана;British Indian Ocean Territory
+96;Бруней;Brunei Darussalam
+100;Болгария;Bulgaria
+854;Буркина Фасо;Burkina Faso
+108;Бурунди;Burundi
+116;Камбоджа;Cambodia
+120;Камерун;Cameroon
+124;Канада;Canada
+132;острова Зеленого Мыса;Cape Verde
+136;Каймановы острова;Cayman Islands
+140;Центральная Африканская Республика;Central African Republic
+148;Чад;Chad
+830;Нормандские острова;Channel Islands
+152;Чили;Chile
+156;Китайская Народная Республика;China
+162;остров Рождества;Christmas Island
+166;Кокосовые острова;Cocos (Keeling) Islands
+170;Колумбия;Colombia
+174;Коморские острова;Comoros
+178;Конго;Congo
+180;Демократическая республика Конго;Congo (Democratic Republic of the)
+184;острова Кука;Cook Islands
+188;Коста Рика;Costa Rica
+384;Кот-д'Ивуар;Cote d'Ivoire
+191;Хорватия;Croatia
+192;Куба;Cuba
+196;Кипр;Cyprus
+203;Чехия;Czech Republic
+208;Дания;Denmark
+262;Джибути;Djibouti
+212;Доминика;Dominica
+214;Доминиканская республика;Dominican Republic
+218;Эквадор;Ecuador
+818;Египет;Egypt
+222;Сальвадор;El Salvador
+226;Экваториальная Гвинея;Equatorial Guinea
+232;Эритрея;Eritrea
+233;Эстония;Estonia
+231;Эфиопия;Ethiopia
+234;Фарерские острова;Faroe Islands
+238;Фолклендские (Мальвинские) острова;Falkland Islands (Malvinas)
+242;Фиджи;Fiji
+246;Финляндия;Finland
+250;Франция;France
+254;Французская Гвиана;French Guiana
+258;Французская Полинезия;French Polynesia
+260;Французские Южные Территории;French Southern Territories
+266;Габон;Gabon
+270;Гамбия;Gambia
+268;Грузия;Georgia
+276;Германия;Germany
+288;Гана;Ghana
+292;Гибралтар;Gibraltar
+300;Греция;Greece
+304;Гренландия;Greenland
+308;Гренада;Grenada
+312;Гваделупа;Guadeloupe
+316;Гуам;Guam
+320;Гватемала;Guatemala
+324;Гвинея;Guinea
+624;Гвинея-Бисау;Guinea-Bissau
+328;Гайана;Guyana
+332;Гаити;Haiti
+334;острова Герда и МакДональда;Heard Island and McDonald Islands
+340;Гондурас;Honduras
+344;Гонконг (Китай);Hong Kong (Special Administrative Region of China)
+348;Венгрия;Hungary
+352;Исландия;Iceland
+356;Индия;India
+360;Индонезия;Indonesia
+364;Иран;Iran (Islamic Republic of)
+368;Ирак;Iraq
+372;Ирландия;Ireland
+833;остров Мэн;Isle of Man
+376;Израиль;Israel
+380;Италия;Italy
+388;Ямайка;Jamaica
+392;Япония;Japan
+400;Иордания;Jordan
+398;Казахстан;Kazakhstan
+404;Кения;Kenya
+296;Кирибати;Kiribati
+410;Корея;Korea (Republic of)
+408;Корейская Народная Демократическая республика;Korea (Democratic People's Republic of)
+414;Кувейт;Kuwait
+417;Кыргызстан;Kyrgyzstan
+418;Лаос;Lao People's Democratic Republic
+428;Латвия;Latvia
+422;Ливан;Lebanon
+426;Лесото;Lesotho
+430;Либерия;Liberia
+434;Ливия;Libyan Arab Jamahiriya
+438;Лихтенштейн;Liechtenstein
+440;Литва;Lithuania
+442;Люксембург;Luxembourg
+446;Макао (Китай);Macau (Special Administrative Region of China)
+807;Македония;Macedonia (The former Yugoslav Republic of)
+450;Мадагаскар;Madagascar
+454;Малави;Malawi
+458;Малайзия;Malaysia
+462;Мальдивские острова;Maldives
+466;Мали;Mali
+470;Мальта;Malta
+584;Маршалловы острова;Marshall Islands
+474;Мартиника;Martinique
+478;Мавритания;Mauritania
+480;Маврикий;Mauritius
+175;Майотта;Mayotte
+484;Мексика;Mexico
+583;Микронезия;Micronesia (Federated States of)
+498;Молдова;Moldova (Republic of)
+492;Монако;Monaco
+496;Монголия;Mongolia
+500;Монтсеррат;Montserrat
+504;Марокко;Morocco
+508;Мозамбик;Mozambique
+104;Мьянма;Myanmar
+516;Намибия;Namibia
+520;Науру;Nauru
+524;Непал;Nepal
+528;Нидерланды;Netherlands
+530;Антильские острова;Netherlands Antilles
+540;Новая Каледония;New Caledonia
+554;Новая Зеландия;New Zealand
+558;Никарагуа;Nicaragua
+562;Нигер;Niger
+566;Нигерия;Nigeria
+570;Ниуэ;Niue
+574;остров Норфолк;Norfolk Island
+580;Марианские острова;Northern Mariana Islands
+578;Норвегия;Norway
+512;Оман;Oman
+586;Пакистан;Pakistan
+585;Палау;Palau
+275;Палестина;Palestinian Territory (Occupied)
+591;Панама;Panama
+598;Папуа - Новая Гвинея;Papua New Guinea
+600;Парагвай;Paraguay
+604;Перу;Peru
+608;Филиппины;Philippines
+612;остров Питкэрн;Pitcairn
+616;Польша;Poland
+620;Португалия;Portugal
+630;Пуэрто-Рико;Puerto Rico
+634;Катар;Qatar
+638;Реюньон;Reunion
+642;Румыния;Romania
+643;Российская Федерация;Russian Federation
+646;Руанда;Rwanda
+654;остров Святой Елены;Saint Helena
+659;Сент-Китс и Невис;Saint Kitts and Nevis
+662;Сент-Люсия;Saint Lucia
+666;Сен-Пьер и Микелон;Saint Pierre and Miquelon
+670;Сент-Винсент и Гренадины;Saint Vincent and the Grenadines
+882;острова Самоа;Samoa
+674;Сан-Марино;San Marino
+678;Сан-Томе и Принсипи;Sao Tome and Principe
+682;Саудовская Аравия;Saudi Arabia
+686;Сенегал;Senegal
+690;Сейшельские острова;Seychelles
+694;Сьерра-Леоне;Sierra Leone
+702;Сингапур;Singapore
+703;Словакия;Slovakia
+705;Словения;Slovenia
+90;Соломоновы острова;Solomon Islands
+706;Сомали;Somalia
+710;ЮАР;South Africa
+239;Южная Георгия и Южные Сандвичевы острова;South Georgia and The South Sandwich Islands
+724;Испания;Spain
+144;Шри Ланка;Sri Lanka
+736;Судан;Sudan
+740;Суринам;Suriname
+744;острова Свалбард и Ян Майен;Svalbard and Jan Mayen Islands
+748;Свазиленд;Swaziland
+752;Швеция;Sweden
+756;Швейцария;Switzerland
+760;Сирия;Syrian Arab Republic
+158;Тайвань (Республика Китай);Taiwan (Province of China)
+762;Таджикистан;Tajikistan
+834;Танзания;Tanzania (United Republic of)
+764;Тайланд;Thailand
+626;Восточный Тимор;Timor-Leste (East Timor)
+768;Того;Togo
+772;Токелау;Tokelau
+776;Тонга;Tonga
+780;Тринидад и Тобаго;Trinidad and Tobago
+788;Тунис;Tunisia
+792;Турция;Turkey
+795;Туркменистан;Turkmenistan
+796;острова Туркс и Кайкос;Turks and Caicos Islands
+798;Тувалу;Tuvalu
+800;Уганда;Uganda
+804;Украина;Ukraine
+784;Арабские Эмираты;United Arab Emirates
+826;Великобритания;United Kingdom
+840;Соединенные Штаты Америки;United States
+581;Отдаленные Острова США;United States Minor Outlying Islands
+858;Уругвай;Uruguay
+860;Узбекистан;Uzbekistan
+548;Вануату;Vanuatu
+336;Ватикан;Holy See (Vatican City State)
+862;Венесуэла;Venezuela
+704;Вьетнам;Viet Nam
+92;Виргинские острова (Британские);Virgin Islands (British)
+850;Виргинские острова (США);Virgin Islands (US)
+876;острова Валлис и Футуна;Wallis and Futuna Islands
+732;Западная Сахара;Western Sahara
+887;Йемен;Yemen
+891;Югославия;Yugoslavia
+894;Замбия;Zambia
+716;Зимбабве;Zimbabwe
+4;Афганистан;Afghanistan

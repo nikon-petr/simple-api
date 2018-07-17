@@ -2,25 +2,35 @@ package edu.nikon.simpleapi.api.catalog.dto;
 
 import io.swagger.annotations.ApiModel;
 
+/**
+ * DTO class used to represent country data in list
+ */
 @ApiModel("Country")
 public class CountryItemDto {
 
-    private long code;
+    /**
+     * country ISO code
+     */
+    private String code;
+
+    /**
+     * country name
+     */
     private String name;
 
     public CountryItemDto() {
     }
 
-    public CountryItemDto(long code, String name) {
+    public CountryItemDto(String code, String name) {
         this.code = code;
         this.name = name;
     }
 
-    public long getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(long code) {
+    public void setCode(String code) {
         this.code = code;
     }
 

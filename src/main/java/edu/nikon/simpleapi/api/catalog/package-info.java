@@ -1,5 +1,5 @@
 /**
- * Root catalog API package
+ * Spring controller classes for catalog api
  *
  * @author nikon-petr
  */

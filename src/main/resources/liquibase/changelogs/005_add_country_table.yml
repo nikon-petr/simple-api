@@ -1,0 +1,36 @@
+databaseChangeLog:
+    - changeSet:
+        id: 005
+        author: nikon-petr
+        changes:
+            - createTable:
+                tableName: country
+                columns:
+                    - column:
+                        name: code
+                        type: varchar(3)
+                        constraints:
+                            primaryKey: true
+                    - column:
+                        name: name
+                        type: varchar(200)
+                        constraints:
+                            nullable: false
+                    - column:
+                        name: en_name
+                        type: varchar(200)
+                        constraints:
+                            nullable: false
+            - loadData:
+                tableName: country
+                columns:
+                    - column:
+                        name: code
+                    - column:
+                        name: name
+                encoding: UTF-8
+                separator: ;
+                file: liquibase/csv/countries.csv
+        rollback:
+            - dropTable:
+                tableName: country
