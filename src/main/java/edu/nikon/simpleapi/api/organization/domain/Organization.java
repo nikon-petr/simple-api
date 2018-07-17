@@ -13,6 +13,9 @@ import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
 import java.util.Objects;
 
+/**
+ * Organization entity
+ */
 @Entity
 @Table(
         name = "organization",
@@ -21,13 +24,45 @@ import java.util.Objects;
 )
 public class Organization {
 
-    private long id;
-    private long version;
+    /**
+     * organization id
+     */
+    private Long id;
+
+    /**
+     * hibernate version field
+     */
+    private Long version;
+
+    /**
+     * organization name
+     */
     private String name;
+
+    /**
+     * organization full name
+     */
     private String fullName;
+
+    /**
+     * organization INN
+     */
     private String inn;
+
+    /**
+     * organization KPP
+     */
     private String kpp;
+
+    /**
+     * organization contacts
+     */
     private Contact contact;
+
+
+    /**
+     * organization activity state
+     */
     private Boolean active;
 
     protected Organization() {
@@ -45,20 +80,20 @@ public class Organization {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
     @Version
-    protected long getVersion() {
+    protected Long getVersion() {
         return version;
     }
 
-    protected void setVersion(long version) {
+    protected void setVersion(Long version) {
         this.version = version;
     }
 
@@ -148,16 +183,51 @@ public class Organization {
         return sb.toString();
     }
 
+    /**
+     * Organization entity builder
+     */
     public static class Builder {
 
+        /**
+         * organization id
+         */
         private long id;
+
+        /**
+         * organization name
+         */
         private String name;
+
+        /**
+         * organization full name
+         */
         private String fullName;
+
+        /**
+         * organization INN
+         */
         private String inn;
+
+        /**
+         * organization KPP
+         */
         private String kpp;
+
+        /**
+         * organization contacts
+         */
         private Contact contact;
+
+        /**
+         * organization activity state
+         */
         private Boolean active;
 
+        /**
+         * Build organization entity with setted values
+         *
+         * @return organization entity
+         */
         public Organization build() {
             return new Organization(id, name, fullName, inn, kpp, contact, active);
         }

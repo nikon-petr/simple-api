@@ -8,16 +8,50 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+/**
+ * DTO class used to receive organization data for updating
+ */
 @ApiModel("UpdateOrganization")
 public class UpdateOrganizationDto {
 
+    /**
+     * organization id
+     */
     private long id;
+    
+    /**
+     * organization name
+     */
     private String name;
+
+    /**
+     * organization full name
+     */
     private String fullName;
+
+    /**
+     * organization INN
+     */
     private String inn;
+
+    /**
+     * organization KPP
+     */
     private String kpp;
+
+    /**
+     * organization address
+     */
     private String address;
+
+    /**
+     * organization phone
+     */
     private String phone;
+
+    /**
+     * organization activity state
+     */
     private Boolean active;
 
     public UpdateOrganizationDto() {

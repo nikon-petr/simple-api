@@ -1,5 +1,5 @@
 /**
- * Classes and interfaces that provide access to the database
+ * Classes that provides an abstract interface to the database tables related to organization api
  *
  * @author nikon-petr
  */

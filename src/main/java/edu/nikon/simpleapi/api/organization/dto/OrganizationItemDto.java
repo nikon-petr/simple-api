@@ -5,11 +5,25 @@ import io.swagger.annotations.ApiModel;
 
 import java.io.Serializable;
 
+/**
+ * DTO class used to represent short organization data in list
+ */
 @ApiModel("OrganizationItem")
 public class OrganizationItemDto implements Serializable {
 
+    /**
+     * organization id
+     */
     private long id;
+
+    /**
+     * organization name
+     */
     private String name;
+
+    /**
+     * organization activity state
+     */
     private Boolean active;
 
     public OrganizationItemDto() {

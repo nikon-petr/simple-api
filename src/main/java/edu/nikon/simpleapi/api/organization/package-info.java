@@ -1,5 +1,5 @@
 /**
- * Root organization API package
+ * Spring controller classes for organization api
  *
  * @author nikon-petr
  */

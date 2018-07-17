@@ -4,17 +4,51 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 
+/**
+ * DTO class used to represent detailed organization data
+ */
 @ApiModel("Organization")
 @JsonInclude(JsonInclude.Include.ALWAYS)
 public class OrganizationDetailedDto {
 
+    /**
+     * organization id
+     */
     private long id;
+
+    /**
+     * organization name
+     */
     private String name;
+
+    /**
+     * organization full name
+     */
     private String fullName;
+
+    /**
+     * organization INN
+     */
     private String inn;
+
+    /**
+     * organization KPP
+     */
     private String kpp;
+
+    /**
+     * organization address
+     */
     private String address;
+
+    /**
+     * organization phone
+     */
     private String phone;
+
+    /**
+     * organization activity state
+     */
     private Boolean active;
 
     public OrganizationDetailedDto() {

@@ -1,5 +1,5 @@
 /**
- * Classes used to produce and consume output and input data for the API
+ * Classes used to produce and consume output and input data for organization api
  *
  * @author nikon-petr
  */

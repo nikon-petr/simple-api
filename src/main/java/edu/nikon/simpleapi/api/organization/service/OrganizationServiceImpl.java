@@ -19,10 +19,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * {@inheritDoc}
+ */
 @Service
 public class OrganizationServiceImpl implements OrganizationService {
-
-    private final Logger logger = LoggerFactory.getLogger(OrganizationController.class);
 
     private final OrganizationDao organizationDao;
 
@@ -61,14 +62,11 @@ public class OrganizationServiceImpl implements OrganizationService {
     @Transactional
     public Organization save(SaveOrganizationDto dto) {
         if (!organizationDao.isUnique(dto.getInn(), dto.getKpp())) {
-            String message = String.format("Organization with inn=%s and kpp=%s already exists", dto.getInn(), dto.getKpp());
-            throw new DataConflictException(message);
+            throw new DataConflictException("Organization inn and kpp should be unique");
         }
 
         Organization organization = OrganizationMapper.mapSaveDtoToEntity().apply(dto);
         organizationDao.save(organization);
-
-        logger.debug("Entity saved {}", organization);
 
         return organization;
     }
@@ -79,18 +77,22 @@ public class OrganizationServiceImpl implements OrganizationService {
     @Override
     @Transactional
     public Organization update(UpdateOrganizationDto dto) {
-        if (!organizationDao.exists(dto.getId())) {
-            String message = String.format("Organization with id=%s is not exists", dto.getId());
-            throw new DataConflictException(message);
-        }
+        String organizationNotFound = String.format("Organization with id=%s is not exists", dto.getId());
 
+        Organization organization = organizationDao.findById(dto.getId())
+                .orElseThrow(() -> new DataConflictException(organizationNotFound));
 
         if (!organizationDao.isUnique(dto.getId(), dto.getInn(), dto.getKpp())) {
             throw new DataConflictException("Organization inn and kpp should be unique");
         }
 
-        Organization organization = OrganizationMapper.mapUpdateDtoToEntity().apply(dto);
-        organization = organizationDao.update(organization);
+        organization.setName(dto.getName());
+        organization.setFullName(dto.getFullName());
+        organization.setInn(dto.getInn());
+        organization.setKpp(dto.getKpp());
+        organization.getContact().setAddress(dto.getAddress());
+        organization.getContact().setPhone(dto.getPhone());
+        organization.setActive(dto.isActive());
 
         return organization;
     }

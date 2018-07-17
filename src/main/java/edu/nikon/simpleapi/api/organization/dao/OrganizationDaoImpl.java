@@ -71,15 +71,6 @@ public class OrganizationDaoImpl implements OrganizationDao {
      * {@inheritDoc}
      */
     @Override
-    public Organization update(Organization entity) {
-        Objects.requireNonNull(entity);
-        return em.merge(entity);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public boolean isUnique(String inn, String kpp) {
         Objects.requireNonNull(inn);
         Objects.requireNonNull(kpp);

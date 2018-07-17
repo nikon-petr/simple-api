@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Data access object for {@link Organization} entity
+ * Provide an abstract interface to the database organization table
  */
 public interface OrganizationDao extends BaseDao<Organization, Long> {
 

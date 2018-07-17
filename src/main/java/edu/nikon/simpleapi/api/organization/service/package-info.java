@@ -1,5 +1,5 @@
 /**
- * Service classes and interfaces
+ * Classes that implements business logic related to organization api
  *
  * @author nikon-petr
  */

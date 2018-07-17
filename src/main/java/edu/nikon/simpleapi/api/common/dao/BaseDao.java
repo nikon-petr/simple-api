@@ -41,13 +41,4 @@ public interface BaseDao<T, ID extends Serializable> {
      * @param entity entity object
      */
     void save(T entity);
-
-    /**
-     * Update entity and return reference to updated entity
-     *
-     * @param entity object with data for update
-     * @return updated entity
-     */
-    T update(T entity);
-
 }

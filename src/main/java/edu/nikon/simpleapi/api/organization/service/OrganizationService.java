@@ -11,7 +11,7 @@ import edu.nikon.simpleapi.api.organization.dto.UpdateOrganizationDto;
 import java.util.List;
 
 /**
- * Service for {@link Organization} entity
+ * Service used to get organization data from the database
  */
 public interface OrganizationService {
 
@@ -33,7 +33,6 @@ public interface OrganizationService {
      * @see OrganizationDetailedDto
      */
     OrganizationDetailedDto findById(long id);
-
 
     /**
      * Save organization to db

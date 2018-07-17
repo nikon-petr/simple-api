@@ -8,11 +8,25 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+/**
+ * DTO class used to transfer parameters necessary for filtering organizations
+ */
 @ApiModel("OrganizationFilter")
 public class FilterOrganizationDto {
 
+    /**
+     * organizations name
+     */
     private String name;
+
+    /**
+     * organizations INN
+     */
     private String inn;
+
+    /**
+     * organizations activity state
+     */
     private Boolean active;
 
     @NotBlank(message = "Name is required and should not be empty")

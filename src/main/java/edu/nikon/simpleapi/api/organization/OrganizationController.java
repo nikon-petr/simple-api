@@ -27,6 +27,9 @@ import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+/**
+ * Organization api controller
+ */
 @RestController
 @RequestMapping("/api/organization")
 public class OrganizationController {
