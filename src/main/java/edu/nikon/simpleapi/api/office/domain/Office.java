@@ -2,7 +2,9 @@ package edu.nikon.simpleapi.api.office.domain;
 
 import edu.nikon.simpleapi.api.common.embeddable.Contact;
 import edu.nikon.simpleapi.api.organization.domain.Organization;
+import edu.nikon.simpleapi.api.user.domain.User;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,9 +14,12 @@ import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * Office entity
@@ -59,15 +64,21 @@ public class Office {
      */
     private Organization organization;
 
+    /**
+     * users related to office
+     */
+    private Set<User> users;
+
     protected Office() {
     }
 
-    private Office(long id, String name, Contact contact, Boolean active, Organization organization) {
+    private Office(long id, String name, Contact contact, Boolean active, Organization organization, Set<User> users) {
         this.id = id;
         setName(name);
         setContact(contact);
         this.active = active;
         this.organization = organization;
+        this.users = users;
     }
 
     @Id
@@ -125,6 +136,42 @@ public class Office {
         this.organization = organization;
     }
 
+    @OneToMany(
+            mappedBy = "office",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    public Set<User> getUsers() {
+        if (users == null) {
+            users = new HashSet<>();
+        }
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
+
+    /**
+     * Manage bidirectional user relation. Add user to office
+     *
+     * @param user user entity
+     */
+    public void addUser(User user) {
+        getUsers().add(user);
+        user.setOffice(this);
+    }
+
+    /**
+     * Manage bidirectional user relation. Remove user from office
+     *
+     * @param user user entity
+     */
+    public void removeUser(User user) {
+        getUsers().remove(user);
+        user.setOffice(null);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -149,6 +196,7 @@ public class Office {
         sb.append(", contact=").append(contact);
         sb.append(", active=").append(active);
         sb.append(", organization={...}");
+        sb.append(", users=[...]");
         sb.append('}');
         return sb.toString();
     }
@@ -181,11 +229,15 @@ public class Office {
          */
         private Boolean active;
 
-
         /**
          * organization owning the office
          */
         private Organization organization;
+
+        /**
+         * users related to office
+         */
+        private Set<User> users;
 
         /**
          * Build office entity with setted values
@@ -193,7 +245,7 @@ public class Office {
          * @return
          */
         public Office build() {
-            return new Office(id, name, contact, active, organization);
+            return new Office(id, name, contact, active, organization, users);
         }
 
         public long getId() {
@@ -238,6 +290,15 @@ public class Office {
 
         public Builder setOrganization(Organization organization) {
             this.organization = organization;
+            return this;
+        }
+
+        public Set<User> getUsers() {
+            return users;
+        }
+
+        public Builder setUsers(Set<User> users) {
+            this.users = users;
             return this;
         }
     }

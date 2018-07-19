@@ -1,97 +1,159 @@
 package edu.nikon.simpleapi.api.user.domain;
 
-import java.util.Date;
-import java.util.concurrent.atomic.AtomicLong;
+import edu.nikon.simpleapi.api.catalog.domain.Country;
+import edu.nikon.simpleapi.api.catalog.domain.DocumentType;
+import edu.nikon.simpleapi.api.common.embeddable.Name;
+import edu.nikon.simpleapi.api.office.domain.Office;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Index;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Version;
+import java.util.Objects;
+
+/**
+ * User entity
+ */
+@Entity
+@Table(
+        name = "`user`",
+        indexes = {
+                @Index(name = "idx_user_document_type_code", columnList = "document_type_code"),
+                @Index(name = "idx_user_citizenship_code", columnList = "citizenship_code"),
+                @Index(name = "idx_user_filter", columnList = "first_name,second_name,middle_name,position,document_type_code,citizenship_code")
+        }
+)
 public class User {
 
-    private static AtomicLong idGenerator = new AtomicLong(1);
+    /**
+     * user id
+     */
+    private Long id;
 
-    private long id;
-    private String firstName;
-    private String secondName;
-    private String middleName;
+    /**
+     * hibernate version field
+     */
+    private Long version;
+
+    /**
+     * user name
+     */
+    private Name name;
+
+    /**
+     * user position
+     */
     private String position;
+
+    /**
+     * user phone number
+     */
     private String phone;
-    private Long docCode;
-    private String docName;
-    private String docNumber;
-    private Date docDate;
-    private Long citizenshipCode;
+
+    /**
+     * user's document code (readonly)
+     */
+    private String documentCode;
+
+    /**
+     * user's citizenship country code (readonly)
+     */
+    private String citizenshipCode;
+
+    /**
+     * user identified state
+     */
     private Boolean identified;
+
+    /**
+     * office id related to user (readonly)
+     */
     private Long officeId;
 
-    public User() {
+    /**
+     * user document data (number, date and etc)
+     */
+    private DocumentData documentData;
+
+    /**
+     * user document type joined by documentCode
+     */
+    private DocumentType documentType;
+
+    /**
+     * user citizenship country joined by citizenshipCode
+     */
+    private Country citizenshipCountry;
+
+    /**
+     * office related to user joined by officeId
+     */
+    private Office office;
+
+    protected User() {
     }
 
-    public User(long id, String firstName, String secondName, String middleName, String position, String phone,
-                Long docCode, String docName, String docNumber, Date docDate, Long citizenshipCode, Boolean identified,
-                Long officeId) {
+    private User(Long id, Name name, String position, String phone, String documentCode,
+                String citizenshipCode, Boolean identified, Long officeId,
+                DocumentData documentData, DocumentType documentType,
+                Country citizenshipCountry, Office office) {
         this.id = id;
-        this.firstName = firstName;
-        this.secondName = secondName;
-        this.middleName = middleName;
+        this.name = name;
         this.position = position;
         this.phone = phone;
-        this.docCode = docCode;
-        this.docName = docName;
-        this.docNumber = docNumber;
-        this.docDate = docDate;
+        this.documentCode = documentCode;
         this.citizenshipCode = citizenshipCode;
         this.identified = identified;
         this.officeId = officeId;
+        this.documentData = documentData;
+        this.documentType = documentType;
+        this.citizenshipCountry = citizenshipCountry;
+        this.office = office;
     }
 
-    public User(String firstName, String secondName, String middleName, String position, String phone, Long docCode,
-                String docName, String docNumber, Date docDate, Long citizenshipCode, Boolean identified,
-                Long officeId) {
-        this.id = idGenerator.getAndIncrement();
-        this.firstName = firstName;
-        this.secondName = secondName;
-        this.middleName = middleName;
-        this.position = position;
-        this.phone = phone;
-        this.docCode = docCode;
-        this.docName = docName;
-        this.docNumber = docNumber;
-        this.docDate = docDate;
-        this.citizenshipCode = citizenshipCode;
-        this.identified = identified;
-        this.officeId = officeId;
-    }
-
-    public long getId() {
+    @Id
+    @SequenceGenerator(
+            name="user_id_seq",
+            sequenceName="user_id_seq",
+            allocationSize=1
+    )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="user_id_seq")
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    @Version
+    protected Long getVersion() {
+        return version;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    protected void setVersion(Long version) {
+        this.version = version;
     }
 
-    public String getSecondName() {
-        return secondName;
+    public Name getName() {
+        return name;
     }
 
-    public void setSecondName(String secondName) {
-        this.secondName = secondName;
+    public void setName(Name name) {
+        this.name = name;
     }
 
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
-    }
-
+    @Column(length = 35, nullable = false)
     public String getPosition() {
         return position;
     }
@@ -100,6 +162,7 @@ public class User {
         this.position = position;
     }
 
+    @Column(length = 30)
     public String getPhone() {
         return phone;
     }
@@ -108,46 +171,25 @@ public class User {
         this.phone = phone;
     }
 
-    public Long getDocCode() {
-        return docCode;
+    @Column(name = "document_type_code", length = 2, insertable = false, updatable = false)
+    public String getDocumentCode() {
+        return documentCode;
     }
 
-    public void setDocCode(Long docCode) {
-        this.docCode = docCode;
+    public void setDocumentCode(String documentCode) {
+        this.documentCode = documentCode;
     }
 
-    public String getDocName() {
-        return docName;
-    }
-
-    public void setDocName(String docName) {
-        this.docName = docName;
-    }
-
-    public String getDocNumber() {
-        return docNumber;
-    }
-
-    public void setDocNumber(String docNumber) {
-        this.docNumber = docNumber;
-    }
-
-    public Date getDocDate() {
-        return docDate;
-    }
-
-    public void setDocDate(Date docDate) {
-        this.docDate = docDate;
-    }
-
-    public Long getCitizenshipCode() {
+    @Column(name = "citizenship_code", length = 3, insertable = false, updatable = false)
+    public String getCitizenshipCode() {
         return citizenshipCode;
     }
 
-    public void setCitizenshipCode(Long citizenshipCode) {
+    public void setCitizenshipCode(String citizenshipCode) {
         this.citizenshipCode = citizenshipCode;
     }
 
+    @Column
     public Boolean getIdentified() {
         return identified;
     }
@@ -156,6 +198,7 @@ public class User {
         this.identified = identified;
     }
 
+    @Column(name = "office_id", insertable = false, updatable = false)
     public Long getOfficeId() {
         return officeId;
     }
@@ -164,23 +207,306 @@ public class User {
         this.officeId = officeId;
     }
 
+    @OneToOne(
+            fetch = FetchType.LAZY,
+            mappedBy = "user",
+            cascade = CascadeType.ALL
+    )
+    public DocumentData getDocumentData() {
+        return documentData;
+    }
+
+    public void setDocumentData(DocumentData documentData) {
+        this.documentData = documentData;
+    }
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "document_type_code")
+    public DocumentType getDocumentType() {
+        return documentType;
+    }
+
+    public void setDocumentType(DocumentType documentType) {
+        this.documentType = documentType;
+    }
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "citizenship_code")
+    public Country getCitizenshipCountry() {
+        return citizenshipCountry;
+    }
+
+    public void setCitizenshipCountry(Country country) {
+        this.citizenshipCountry = country;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "office_id")
+    public Office getOffice() {
+        return office;
+    }
+
+    public void setOffice(Office office) {
+        this.office = office;
+    }
+
+    /**
+     * Manage bidirectional documentData relation. Attach document data or set to null.
+     *
+     * @param documentData document data entity or null
+     */
+    public void attachDocumentData(DocumentData documentData) {
+        if (documentData != null) {
+            documentData.setUser(this);
+        }
+        this.documentData = documentData;
+    }
+
+    /**
+     * Manage bidirectional office relation. Add user to office or set to null.
+     *
+     * @param office
+     */
+    public void addToOffice(Office office) {
+        if (office != null) {
+            office.addUser(this);
+        }
+        this.office = office;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return Objects.equals(name, user.name) &&
+                Objects.equals(position, user.position) &&
+                Objects.equals(phone, user.phone) &&
+                Objects.equals(documentCode, user.documentCode) &&
+                Objects.equals(citizenshipCode, user.citizenshipCode) &&
+                Objects.equals(identified, user.identified);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, position, phone, documentCode, citizenshipCode, identified);
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("User{");
         sb.append("id=").append(id);
-        sb.append(", firstName='").append(firstName).append('\'');
-        sb.append(", secondName='").append(secondName).append('\'');
-        sb.append(", middleName='").append(middleName).append('\'');
+        sb.append(", version=").append(version);
+        sb.append(", name=").append(name);
         sb.append(", position='").append(position).append('\'');
         sb.append(", phone='").append(phone).append('\'');
-        sb.append(", docCode=").append(docCode);
-        sb.append(", docName='").append(docName).append('\'');
-        sb.append(", docNumber='").append(docNumber).append('\'');
-        sb.append(", docDate=").append(docDate);
-        sb.append(", citizenshipCode=").append(citizenshipCode);
-        sb.append(", identified='").append(identified).append('\'');
-        sb.append(", officeId=").append(officeId);
+        sb.append(", documentCode='").append(documentCode).append('\'');
+        sb.append(", citizenshipCode='").append(citizenshipCode).append('\'');
+        sb.append(", identified=").append(identified);
+        sb.append(", documentData={...}").append(documentData);
+        sb.append(", documentType={...}").append(documentType);
+        sb.append(", citizenshipCountry={...}").append(citizenshipCountry);
         sb.append('}');
         return sb.toString();
+    }
+
+    /**
+     * User builder class
+     */
+    public static class Builder {
+
+        /**
+         * user id
+         */
+        private Long id;
+
+        /**
+         * hibernate version field
+         */
+        private Long version;
+
+        /**
+         * user name
+         */
+        private Name name;
+
+        /**
+         * user position
+         */
+        private String position;
+
+        /**
+         * user phone number
+         */
+        private String phone;
+
+        /**
+         * user's document code (readonly)
+         */
+        private String documentCode;
+
+        /**
+         * user's citizenship country code (readonly)
+         */
+        private String citizenshipCode;
+
+        /**
+         * user identified state
+         */
+        private Boolean identified;
+
+        /**
+         * office id related to user (readonly)
+         */
+        private Long officeId;
+
+        /**
+         * user document data (number, date and etc)
+         */
+        private DocumentData documentData;
+
+        /**
+         * user document type joined by documentCode
+         */
+        private DocumentType documentType;
+
+        /**
+         * user citizenship country joined by citizenshipCode
+         */
+        private Country citizenshipCountry;
+
+        /**
+         * office related to user joined by officeId
+         */
+        private Office office;
+
+        /**
+         * Build user entity with setted values
+         *
+         * @return user entity
+         */
+        public User build() {
+            return new User(id, name, position, phone, documentCode,
+                            citizenshipCode, identified, officeId,
+                            documentData, documentType,
+                            citizenshipCountry, office);
+        }
+
+        public Long getId() {
+            return id;
+        }
+
+        public Builder setId(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public Long getVersion() {
+            return version;
+        }
+
+        public Builder setVersion(Long version) {
+            this.version = version;
+            return this;
+        }
+
+        public Name getName() {
+            return name;
+        }
+
+        public Builder setName(Name name) {
+            this.name = name;
+            return this;
+        }
+
+        public String getPosition() {
+            return position;
+        }
+
+        public Builder setPosition(String position) {
+            this.position = position;
+            return this;
+        }
+
+        public String getPhone() {
+            return phone;
+        }
+
+        public Builder setPhone(String phone) {
+            this.phone = phone;
+            return this;
+        }
+
+        public String getDocumentCode() {
+            return documentCode;
+        }
+
+        public Builder setDocumentCode(String documentCode) {
+            this.documentCode = documentCode;
+            return this;
+        }
+
+        public String getCitizenshipCode() {
+            return citizenshipCode;
+        }
+
+        public Builder setCitizenshipCode(String citizenshipCode) {
+            this.citizenshipCode = citizenshipCode;
+            return this;
+        }
+
+        public Boolean getIdentified() {
+            return identified;
+        }
+
+        public Builder setIdentified(Boolean identified) {
+            this.identified = identified;
+            return this;
+        }
+
+        public Long getOfficeId() {
+            return officeId;
+        }
+
+        public Builder setOfficeId(Long officeId) {
+            this.officeId = officeId;
+            return this;
+        }
+
+        public DocumentData getDocumentData() {
+            return documentData;
+        }
+
+        public Builder setDocumentData(DocumentData documentData) {
+            this.documentData = documentData;
+            return this;
+        }
+
+        public DocumentType getDocumentType() {
+            return documentType;
+        }
+
+        public Builder setDocumentType(DocumentType documentType) {
+            this.documentType = documentType;
+            return this;
+        }
+
+        public Country getCitizenshipCountry() {
+            return citizenshipCountry;
+        }
+
+        public Builder setCitizenshipCountry(Country citizenshipCountry) {
+            this.citizenshipCountry = citizenshipCountry;
+            return this;
+        }
+
+        public Office getOffice() {
+            return office;
+        }
+
+        public Builder setOffice(Office office) {
+            this.office = office;
+            return this;
+        }
     }
 }

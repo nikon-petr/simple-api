@@ -9,38 +9,84 @@ import javax.validation.constraints.Size;
 import java.util.Date;
 
 
+/**
+ * DTO class used to receive user data for saving
+ */
 @ApiModel("SaveUser")
 public class SaveUserDto {
 
+    /**
+     * user first name
+     */
     private String firstName;
+
+    /**
+     * user second name
+     */
     private String secondName;
+
+    /**
+     * user middle name
+     */
     private String middleName;
+
+    /**
+     * user position
+     */
     private String position;
+
+    /**
+     * user phone
+     */
     private String phone;
-    private Long docCode;
-    private String docName;
+
+    /**
+     * user's document code
+     */
+    private String docCode;
+
+    /**
+     * user's document number
+     */
     private String docNumber;
+
+    /**
+     * user's document date
+     */
     private Date docDate;
-    private Long citizenshipCode;
+
+    /**
+     * user citizenship country code
+     */
+    private String citizenshipCode;
+
+    /**
+     * user identity state
+     */
     private Boolean identified;
+
+    /**
+     * user office id
+     */
+    private Long officeId;
 
     public SaveUserDto() {
     }
 
     public SaveUserDto(String firstName, String secondName, String middleName, String position, String phone,
-                       Long docCode, String docName, String docNumber, Date docDate, Long citizenshipCode,
-                       Boolean identified) {
+                       String docCode, String docNumber, Date docDate, String citizenshipCode,
+                       Boolean identified, Long officeId) {
         this.firstName = firstName;
         this.secondName = secondName;
         this.middleName = middleName;
         this.position = position;
         this.phone = phone;
         this.docCode = docCode;
-        this.docName = docName;
         this.docNumber = docNumber;
         this.docDate = docDate;
         this.citizenshipCode = citizenshipCode;
         this.identified = identified;
+        this.officeId = officeId;
     }
 
     @NotBlank
@@ -91,21 +137,13 @@ public class SaveUserDto {
         this.phone = phone;
     }
 
-    public Long getDocCode() {
+    @Pattern(regexp = "^[0-9]+$", message = "Document code should contains only digit characters")
+    public String getDocCode() {
         return docCode;
     }
 
-    public void setDocCode(Long docCode) {
+    public void setDocCode(String docCode) {
         this.docCode = docCode;
-    }
-
-    @Size(max = 75, message = "Doc name length should be less than 30 characters")
-    public String getDocName() {
-        return docName;
-    }
-
-    public void setDocName(String docName) {
-        this.docName = docName;
     }
 
     @Pattern(regexp = "^[0-9]+$", message = "Doc number should contains only digit characters")
@@ -125,11 +163,12 @@ public class SaveUserDto {
         this.docDate = docDate;
     }
 
-    public Long getCitizenshipCode() {
+    @Pattern(regexp = "^[0-9]+$", message = "Citizenship country code number should contains only digit characters")
+    public String getCitizenshipCode() {
         return citizenshipCode;
     }
 
-    public void setCitizenshipCode(Long citizenshipCode) {
+    public void setCitizenshipCode(String citizenshipCode) {
         this.citizenshipCode = citizenshipCode;
     }
 
@@ -142,6 +181,14 @@ public class SaveUserDto {
         this.identified = identified;
     }
 
+    public Long getOfficeId() {
+        return officeId;
+    }
+
+    public void setOfficeId(Long officeId) {
+        this.officeId = officeId;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("SaveUserDto{");
@@ -151,11 +198,11 @@ public class SaveUserDto {
         sb.append(", position='").append(position).append('\'');
         sb.append(", phone='").append(phone).append('\'');
         sb.append(", docCode=").append(docCode);
-        sb.append(", docName='").append(docName).append('\'');
         sb.append(", docNumber='").append(docNumber).append('\'');
         sb.append(", docDate=").append(docDate);
         sb.append(", citizenshipCode=").append(citizenshipCode);
-        sb.append(", identified='").append(identified).append('\'');
+        sb.append(", identified=").append(identified);
+        sb.append(", officeId=").append(officeId);
         sb.append('}');
         return sb.toString();
     }

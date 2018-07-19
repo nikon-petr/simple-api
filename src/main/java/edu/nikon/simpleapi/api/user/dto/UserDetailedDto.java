@@ -1,29 +1,81 @@
 package edu.nikon.simpleapi.api.user.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModel;
 
 import java.util.Date;
 
+/**
+ * DTO class used to represent detailed user data
+ */
+@ApiModel("UserDetailed")
 public class UserDetailedDto {
 
+    /**
+     * user id
+     */
     private long id;
+
+    /**
+     * user first name
+     */
     private String firstName;
+
+    /**
+     * user second name
+     */
     private String secondName;
+
+    /**
+     * user middle name
+     */
     private String middleName;
+
+    /**
+     * user position
+     */
     private String position;
+
+    /**
+     * user phone
+     */
     private String phone;
+
+    /**
+     * user's document code
+     */
     private String docName;
+
+    /**
+     * user's document number
+     */
     private String docNumber;
+
+    /**
+     * user's document date
+     */
     private Date docDate;
-    private Long citizenshipCode;
+
+    /**
+     * user citizenship country code
+     */
+    private String citizenshipCode;
+
+    /**
+     * user citizenship country name
+     */
     private String citizenshipName;
+
+    /**
+     * user identity state
+     */
     private Boolean identified;
 
     public UserDetailedDto() {
     }
 
     public UserDetailedDto(long id, String firstName, String secondName, String middleName, String position,
-                           String phone, String docName, String docNumber, Date docDate, Long citizenshipCode,
+                           String phone, String docName, String docNumber, Date docDate, String citizenshipCode,
                            String citizenshipName, Boolean identified) {
         this.id = id;
         this.firstName = firstName;
@@ -111,11 +163,11 @@ public class UserDetailedDto {
         this.docDate = docDate;
     }
 
-    public Long getCitizenshipCode() {
+    public String getCitizenshipCode() {
         return citizenshipCode;
     }
 
-    public void setCitizenshipCode(Long citizenshipCode) {
+    public void setCitizenshipCode(String citizenshipCode) {
         this.citizenshipCode = citizenshipCode;
     }
 

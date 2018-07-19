@@ -1,0 +1,33 @@
+databaseChangeLog:
+    - changeSet:
+        id: 007
+        author: nikon-petr
+        changes:
+            - createTable:
+                tableName: document_data
+                columns:
+                    - column:
+                        name: user_id
+                        type: bigint
+                        constraints:
+                            primaryKey: true
+                            references: user(id)
+                            foreignKeyName: document_data_user_fk
+                            deleteCascade: true
+                    - column:
+                        name: version
+                        type: bigint
+                        constraints:
+                            nullable: false
+                    - column:
+                        name: number
+                        type: varchar(15)
+                        constraints:
+                            nullable: false
+                            uniqueConstraintName: unique_document_data_number
+                            unique: true
+                    - column:
+                        name: date
+                        type: date
+                        constraints:
+                            nullable: false

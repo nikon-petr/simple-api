@@ -10,37 +10,90 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
+/**
+ * DTO class used to receive user data for updating
+ */
 @ApiModel("UpdateUser")
 public class UpdateUserDto {
 
+    /**
+     * user id
+     */
     private Long id;
+
+    /**
+     * user first name
+     */
     private String firstName;
+
+    /**
+     * user second name
+     */
     private String secondName;
+
+    /**
+     * user middle name
+     */
     private String middleName;
+
+    /**
+     * user position
+     */
     private String position;
+
+    /**
+     * user phone number
+     */
     private String phone;
-    private String docName;
+
+    /**
+     * user's document code
+     */
+    private String docCode;
+
+    /**
+     * user's document number
+     */
     private String docNumber;
+
+    /**
+     * user's document date
+     */
     private Date docDate;
-    private Long citizenshipCode;
+
+    /**
+     * user citizenship country ISO code
+     */
+    private String citizenshipCode;
+
+    /**
+     * user identity state
+     */
     private Boolean identified;
+
+    /**
+     * office id
+     */
+    private Long officeId;
 
     public UpdateUserDto() {
     }
 
     public UpdateUserDto(Long id, String firstName, String secondName, String middleName, String position, String phone,
-                         String docName, String docNumber, Date docDate, Long citizenshipCode, Boolean identified) {
+                         String docCode, String docNumber, Date docDate, String citizenshipCode,
+                         Boolean identified, Long officeId) {
         this.id = id;
         this.firstName = firstName;
         this.secondName = secondName;
         this.middleName = middleName;
         this.position = position;
         this.phone = phone;
-        this.docName = docName;
+        this.docCode = docCode;
         this.docNumber = docNumber;
         this.docDate = docDate;
         this.citizenshipCode = citizenshipCode;
         this.identified = identified;
+        this.officeId = officeId;
     }
 
     @ApiModelProperty(required = true)
@@ -101,13 +154,13 @@ public class UpdateUserDto {
         this.phone = phone;
     }
 
-    @Size(max = 75, message = "Doc name length should be less than 75 characters")
-    public String getDocName() {
-        return docName;
+    @Pattern(regexp = "^[0-9]+$", message = "Doc code should contains only digit characters")
+    public String getDocCode() {
+        return docCode;
     }
 
-    public void setDocName(String docName) {
-        this.docName = docName;
+    public void setDocCode(String docCode) {
+        this.docCode = docCode;
     }
 
     @Pattern(regexp = "^[0-9]+$", message = "Doc number should contains only digit characters")
@@ -127,11 +180,12 @@ public class UpdateUserDto {
         this.docDate = docDate;
     }
 
-    public Long getCitizenshipCode() {
+    @Pattern(regexp = "^[0-9]+$", message = "Citizenship country code should contains only digit characters")
+    public String getCitizenshipCode() {
         return citizenshipCode;
     }
 
-    public void setCitizenshipCode(Long citizenshipCode) {
+    public void setCitizenshipCode(String citizenshipCode) {
         this.citizenshipCode = citizenshipCode;
     }
 
@@ -144,6 +198,14 @@ public class UpdateUserDto {
         this.identified = identified;
     }
 
+    public Long getOfficeId() {
+        return officeId;
+    }
+
+    public void setOfficeId(Long officeId) {
+        this.officeId = officeId;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("UpdateUserDto{");
@@ -153,7 +215,6 @@ public class UpdateUserDto {
         sb.append(", middleName='").append(middleName).append('\'');
         sb.append(", position='").append(position).append('\'');
         sb.append(", phone='").append(phone).append('\'');
-        sb.append(", docName='").append(docName).append('\'');
         sb.append(", docNumber='").append(docNumber).append('\'');
         sb.append(", docDate=").append(docDate);
         sb.append(", citizenshipCode=").append(citizenshipCode);

@@ -14,3 +14,9 @@ databaseChangeLog:
     - include:
         relativeToChangelogFile: true
         file: ./changelogs/005_add_country_table.yml
+    - include:
+        relativeToChangelogFile: true
+        file: ./changelogs/006_add_user_table.yml
+    - include:
+        relativeToChangelogFile: true
+        file: ./changelogs/007_add_document_data_table.yml
