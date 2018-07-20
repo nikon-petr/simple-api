@@ -42,7 +42,7 @@ public class UserDetailedDto {
     private String phone;
 
     /**
-     * user's document code
+     * user's document name
      */
     private String docName;
 

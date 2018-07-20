@@ -1,68 +1,42 @@
 package edu.nikon.simpleapi.api.organization.dto.mapper;
 
-import edu.nikon.simpleapi.api.common.embeddable.Contact;
 import edu.nikon.simpleapi.api.organization.domain.Organization;
 import edu.nikon.simpleapi.api.organization.dto.OrganizationDetailedDto;
 import edu.nikon.simpleapi.api.organization.dto.OrganizationItemDto;
 import edu.nikon.simpleapi.api.organization.dto.SaveOrganizationDto;
-
-import java.util.function.Function;
+import edu.nikon.simpleapi.api.organization.dto.UpdateOrganizationDto;
+import ma.glasnost.orika.MapperFactory;
+import ma.glasnost.orika.impl.ConfigurableMapper;
+import org.springframework.stereotype.Component;
 
 /**
- * Util for mapping from entity to dto and in the opposite direction
+ * Class for configure organization mapper factory
  */
-public class OrganizationMapper {
+@Component
+public class OrganizationMapper extends ConfigurableMapper {
 
-    /**
-     * Maps organization entity to dto which is a list item
-     *
-     * @return function returning organization mapped to {@link OrganizationItemDto}
-     * @see Organization
-     * @see OrganizationItemDto
-     */
-    public static Function<Organization, OrganizationItemDto> mapEntityToItem() {
-        return o -> new OrganizationItemDto(
-                o.getId(),
-                o.getName(),
-                o.getActive()
-        );
-    }
+    @Override
+    protected void configure(MapperFactory factory) {
+        factory.classMap(Organization.class, OrganizationItemDto.class)
+                .byDefault()
+                .register();
 
-    /**
-     * Maps organization entity to detailed dto
-     *
-     * @return function returning organization mapped to {@link OrganizationDetailedDto}
-     * @see Organization
-     * @see OrganizationDetailedDto
-     */
-    public static Function<Organization, OrganizationDetailedDto> mapEntityToDetailed() {
-        return o -> new OrganizationDetailedDto(
-                o.getId(),
-                o.getName(),
-                o.getFullName(),
-                o.getInn(),
-                o.getKpp(),
-                o.getContact().getAddress(),
-                o.getContact().getPhone(),
-                o.getActive()
-        );
-    }
+        factory.classMap(Organization.class, OrganizationDetailedDto.class)
+                .field("contact.address", "address")
+                .field("contact.phone", "phone")
+                .byDefault()
+                .register();
 
-    /**
-     * Maps organization dto to entity for saving in db
-     *
-     * @return function returning organization dto mapped to {@link Organization}
-     * @see Organization
-     * @see SaveOrganizationDto
-     */
-    public static Function<SaveOrganizationDto, Organization> mapSaveDtoToEntity() {
-        return dto -> new Organization.Builder()
-                .setName(dto.getName())
-                .setFullName(dto.getFullName())
-                .setInn(dto.getInn())
-                .setKpp(dto.getKpp())
-                .setContact(new Contact(dto.getAddress(), dto.getPhone()))
-                .setActive(dto.isActive())
-                .build();
+        factory.classMap(Organization.class, SaveOrganizationDto.class)
+                .field("contact.address", "address")
+                .field("contact.phone", "phone")
+                .byDefault()
+                .register();
+
+        factory.classMap(Organization.class, UpdateOrganizationDto.class)
+                .field("contact.address", "address")
+                .field("contact.phone", "phone")
+                .byDefault()
+                .register();
     }
 }

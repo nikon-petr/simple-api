@@ -23,9 +23,12 @@ import java.util.stream.Collectors;
 public class OrganizationServiceImpl implements OrganizationService {
 
     private final OrganizationDao organizationDao;
+    private final OrganizationMapper organizationMapper;
 
-    public OrganizationServiceImpl(OrganizationDao organizationDao) {
+    public OrganizationServiceImpl(OrganizationDao organizationDao,
+                                   OrganizationMapper organizationMapper) {
         this.organizationDao = organizationDao;
+        this.organizationMapper = organizationMapper;
     }
 
     /**
@@ -34,9 +37,8 @@ public class OrganizationServiceImpl implements OrganizationService {
     @Override
     @Transactional(readOnly = true)
     public List<OrganizationItemDto> filter(FilterOrganizationDto dto) {
-        return organizationDao.filter(dto.getName(), dto.getInn(), dto.isActive()).stream()
-                .map(OrganizationMapper.mapEntityToItem())
-                .collect(Collectors.toList());
+        List<Organization> organizations = organizationDao.filter(dto.getName(), dto.getInn(), dto.isActive());
+        return organizationMapper.mapAsList(organizations, OrganizationItemDto.class);
     }
 
     /**
@@ -49,7 +51,7 @@ public class OrganizationServiceImpl implements OrganizationService {
                 .findById(id)
                 .orElseThrow(() -> new DataNotFoundException(String.format("Organization with id=%s not found", id)));
 
-        return OrganizationMapper.mapEntityToDetailed().apply(organization);
+        return organizationMapper.map(organization, OrganizationDetailedDto.class);
     }
 
     /**
@@ -62,7 +64,7 @@ public class OrganizationServiceImpl implements OrganizationService {
             throw new DataConflictException("Organization inn and kpp should be unique");
         }
 
-        Organization organization = OrganizationMapper.mapSaveDtoToEntity().apply(dto);
+        Organization organization = organizationMapper.map(dto, Organization.class);
         organizationDao.save(organization);
 
         return organization;
@@ -83,13 +85,7 @@ public class OrganizationServiceImpl implements OrganizationService {
             throw new DataConflictException("Organization inn and kpp should be unique");
         }
 
-        organization.setName(dto.getName());
-        organization.setFullName(dto.getFullName());
-        organization.setInn(dto.getInn());
-        organization.setKpp(dto.getKpp());
-        organization.getContact().setAddress(dto.getAddress());
-        organization.getContact().setPhone(dto.getPhone());
-        organization.setActive(dto.isActive());
+        organizationMapper.map(dto, organization);
 
         return organization;
     }

@@ -30,12 +30,15 @@ public class OfficeServiceImpl implements OfficeService {
     private final Logger logger = LoggerFactory.getLogger(OfficeService.class);
     private final OfficeDao officeDao;
     private final OrganizationDao organizationDao;
+    private final OfficeMapper officeMapper;
 
     @Autowired
     public OfficeServiceImpl(OfficeDao officeDao,
-                             OrganizationDao organizationDao) {
+                             OrganizationDao organizationDao,
+                             OfficeMapper officeMapper) {
         this.officeDao = officeDao;
         this.organizationDao = organizationDao;
+        this.officeMapper = officeMapper;
     }
 
     /**
@@ -44,9 +47,8 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     @Transactional(readOnly = true)
     public List<OfficeItemDto> filter(FilterOfficeDto dto) {
-        return officeDao.filter(dto.getOrgId(), dto.getName(), dto.getPhone(), dto.getActive()).stream()
-                .map(OfficeMapper.mapEntityToItem())
-                .collect(Collectors.toList());
+        List<Office> offices = officeDao.filter(dto.getOrgId(), dto.getName(), dto.getPhone(), dto.getActive());
+        return officeMapper.mapAsList(offices, OfficeItemDto.class);
     }
 
     /**
@@ -58,7 +60,7 @@ public class OfficeServiceImpl implements OfficeService {
         Office office = officeDao.findById(id)
                 .orElseThrow(() -> new DataNotFoundException(String.format("Office with id=%s not found", id)));
 
-        return OfficeMapper.mapEntityToDetailed().apply(office);
+        return officeMapper.map(office, OfficeDetailedDto.class);
     }
 
     /**
@@ -75,7 +77,7 @@ public class OfficeServiceImpl implements OfficeService {
                     .orElseThrow(() -> new DataConflictException(msg));
         }
 
-        Office office = OfficeMapper.mapSaveDtoToEntity().apply(dto);
+        Office office = officeMapper.map(dto, Office.class);
         office.setOrganization(organization);
         officeDao.save(office);
         return office;
@@ -99,10 +101,7 @@ public class OfficeServiceImpl implements OfficeService {
                     .orElseThrow(() -> new DataConflictException(organizationNotFound));
         }
 
-        office.setName(dto.getName());
-        office.getContact().setAddress(dto.getAddress());
-        office.getContact().setPhone(dto.getPhone());
-        office.setActive(dto.getActive());
+        officeMapper.map(dto, office);
         office.setOrganization(organization);
 
         return office;

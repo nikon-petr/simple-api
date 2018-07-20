@@ -23,7 +23,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * {@inheritDoc}
@@ -36,16 +35,19 @@ public class UserServiceImpl implements UserService {
     private final DocumentTypeDao documentTypeDao;
     private final DocumentDataDao documentDataDao;
     private final CountryDao countryDao;
+    private final UserMapper userMapper;
 
     @Autowired
     public UserServiceImpl(UserDao userDao, OfficeDao officeDao,
                            DocumentTypeDao documentTypeDao,
-                           DocumentDataDao documentDataDao, CountryDao countryDao) {
+                           DocumentDataDao documentDataDao, CountryDao countryDao,
+                           UserMapper userMapper) {
         this.userDao = userDao;
         this.officeDao = officeDao;
         this.documentTypeDao = documentTypeDao;
         this.documentDataDao = documentDataDao;
         this.countryDao = countryDao;
+        this.userMapper = userMapper;
     }
 
     /**
@@ -54,15 +56,14 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(readOnly = true)
     public List<UserItemDto> filter(FilterUserDto dto) {
-        return userDao.filter(dto.getOfficeId(),
-                              dto.getFirstName(),
-                              dto.getSecondName(),
-                              dto.getMiddleName(),
-                              dto.getPosition(),
-                              dto.getDocCode(),
-                              dto.getCitizenshipCode()).stream()
-                .map(UserMapper.mapEntityToItem())
-                .collect(Collectors.toList());
+        List<User> users = userDao.filter(dto.getOfficeId(),
+                                          dto.getFirstName(),
+                                          dto.getSecondName(),
+                                          dto.getMiddleName(),
+                                          dto.getPosition(),
+                                          dto.getDocCode(),
+                                          dto.getCitizenshipCode());
+        return userMapper.mapAsList(users, UserItemDto.class);
     }
 
     /**
@@ -72,9 +73,9 @@ public class UserServiceImpl implements UserService {
     @Transactional(readOnly = true)
     public UserDetailedDto findById(long id) {
         String notFound = String.format("User with id=%s is not exist", id);
-        return userDao.findByIdEager(id)
-                .map(UserMapper.mapEntityToDetailed())
+        User user = userDao.findByIdEager(id)
                 .orElseThrow(() -> new DataNotFoundException(notFound));
+        return userMapper.map(user, UserDetailedDto.class);
     }
 
     /**
@@ -113,7 +114,7 @@ public class UserServiceImpl implements UserService {
                     .orElseThrow(() -> new DataConflictException(msg));
         }
 
-        User user = UserMapper.mapSaveDtoToEntity().apply(dto);
+        User user = userMapper.map(dto, User.class);
         user.setOffice(office);
         user.setDocumentType(documentType);
         user.attachDocumentData(documentData);
@@ -155,11 +156,7 @@ public class UserServiceImpl implements UserService {
         User user = userDao.findById(dto.getId())
                 .orElseThrow(() -> new DataNotFoundException(userNotFound));
 
-        user.getName().setFirst(dto.getFirstName());
-        user.getName().setSecond(dto.getSecondName());
-        user.getName().setMiddle(dto.getMiddleName());
-        user.setPosition(dto.getPosition());
-        user.setPhone(dto.getPhone());
+        userMapper.map(dto, user);
         user.setDocumentType(documentType);
 
         if (dto.getDocDate() != null || dto.getDocNumber() != null) {
@@ -176,7 +173,6 @@ public class UserServiceImpl implements UserService {
         }
 
         user.setCitizenshipCountry(country);
-        user.setIdentified(dto.getIdentified());
         user.setOffice(office);
 
         return user;

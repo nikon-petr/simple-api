@@ -1,5 +1,5 @@
 /**
- * Classes for mapping from entity to dto and in the opposite direction
+ * Classes for configure user mapper factories
  *
  * @author nikon-petr
  */

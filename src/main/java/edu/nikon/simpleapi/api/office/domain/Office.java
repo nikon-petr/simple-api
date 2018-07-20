@@ -69,16 +69,7 @@ public class Office {
      */
     private Set<User> users;
 
-    protected Office() {
-    }
-
-    private Office(long id, String name, Contact contact, Boolean active, Organization organization, Set<User> users) {
-        this.id = id;
-        setName(name);
-        setContact(contact);
-        this.active = active;
-        this.organization = organization;
-        this.users = users;
+    public Office() {
     }
 
     @Id
@@ -199,107 +190,5 @@ public class Office {
         sb.append(", users=[...]");
         sb.append('}');
         return sb.toString();
-    }
-
-    /**
-     * Office entity builder
-     */
-    public static class Builder {
-
-        /**
-         * office id
-         */
-        private long id;
-
-
-        /**
-         * office name
-         */
-        private String name;
-
-
-        /**
-         * office contacts
-         */
-        private Contact contact;
-
-
-        /**
-         * office activity state
-         */
-        private Boolean active;
-
-        /**
-         * organization owning the office
-         */
-        private Organization organization;
-
-        /**
-         * users related to office
-         */
-        private Set<User> users;
-
-        /**
-         * Build office entity with setted values
-         *
-         * @return
-         */
-        public Office build() {
-            return new Office(id, name, contact, active, organization, users);
-        }
-
-        public long getId() {
-            return id;
-        }
-
-        public Builder setId(long id) {
-            this.id = id;
-            return this;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public Builder setName(String name) {
-            this.name = name;
-            return this;
-        }
-
-        public Boolean getActive() {
-            return active;
-        }
-
-        public Builder setActive(Boolean active) {
-            this.active = active;
-            return this;
-        }
-
-        public Contact getContact() {
-            return contact;
-        }
-
-        public Builder setContact(Contact contact) {
-            this.contact = contact;
-            return this;
-        }
-
-        public Organization getOrganization() {
-            return organization;
-        }
-
-        public Builder setOrganization(Organization organization) {
-            this.organization = organization;
-            return this;
-        }
-
-        public Set<User> getUsers() {
-            return users;
-        }
-
-        public Builder setUsers(Set<User> users) {
-            this.users = users;
-            return this;
-        }
     }
 }

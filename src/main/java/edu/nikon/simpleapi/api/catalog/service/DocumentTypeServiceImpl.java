@@ -16,10 +16,13 @@ import java.util.stream.Collectors;
 public class DocumentTypeServiceImpl implements DocumentTypeService {
 
     private final DocumentTypeDao documentTypeDao;
+    private final DocumentTypeMapper documentTypeMapper;
 
     @Autowired
-    public DocumentTypeServiceImpl(DocumentTypeDao documentTypeDao) {
+    public DocumentTypeServiceImpl(DocumentTypeDao documentTypeDao,
+                                   DocumentTypeMapper documentTypeMapper) {
         this.documentTypeDao = documentTypeDao;
+        this.documentTypeMapper = documentTypeMapper;
     }
 
     /**
@@ -27,8 +30,6 @@ public class DocumentTypeServiceImpl implements DocumentTypeService {
      */
     @Override
     public List<DocTypeItemDto> findAll() {
-        return documentTypeDao.findAll().stream()
-                .map(DocumentTypeMapper.mapEntityToItemDto())
-                .collect(Collectors.toList());
+        return documentTypeMapper.mapAsList(documentTypeDao.findAll(), DocTypeItemDto.class);
     }
 }

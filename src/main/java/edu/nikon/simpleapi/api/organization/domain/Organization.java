@@ -69,20 +69,10 @@ public class Organization {
      * organization activity state
      */
     private Boolean active;
+
     private Set<Office> offices;
 
-    protected Organization() {
-    }
-
-    private Organization(long id, String name, String fullName, String inn, String kpp, Contact contact,
-                         Boolean active) {
-        this.id = id;
-        setName(name);
-        setFullName(fullName);
-        setInn(inn);
-        setKpp(kpp);
-        setContact(contact);
-        this.active = active;
+    public Organization() {
     }
 
     @Id
@@ -225,90 +215,5 @@ public class Organization {
         sb.append(", offices=[...Office{...}]");
         sb.append('}');
         return sb.toString();
-    }
-
-    /**
-     * Organization entity builder
-     */
-    public static class Builder {
-
-        /**
-         * organization id
-         */
-        private long id;
-
-        /**
-         * organization name
-         */
-        private String name;
-
-        /**
-         * organization full name
-         */
-        private String fullName;
-
-        /**
-         * organization INN
-         */
-        private String inn;
-
-        /**
-         * organization KPP
-         */
-        private String kpp;
-
-        /**
-         * organization contacts
-         */
-        private Contact contact;
-
-        /**
-         * organization activity state
-         */
-        private Boolean active;
-
-        /**
-         * Build organization entity with setted values
-         *
-         * @return organization entity
-         */
-        public Organization build() {
-            return new Organization(id, name, fullName, inn, kpp, contact, active);
-        }
-
-        public Builder setId(long id) {
-            this.id = id;
-            return this;
-        }
-
-        public Builder setName(String name) {
-            this.name = name;
-            return this;
-        }
-
-        public Builder setFullName(String fullName) {
-            this.fullName = fullName;
-            return this;
-        }
-
-        public Builder setInn(String inn) {
-            this.inn = inn;
-            return this;
-        }
-
-        public Builder setKpp(String kpp) {
-            this.kpp = kpp;
-            return this;
-        }
-
-        public Builder setContact(Contact contact) {
-            this.contact = contact;
-            return this;
-        }
-
-        public Builder setActive(Boolean active) {
-            this.active = active;
-            return this;
-        }
     }
 }

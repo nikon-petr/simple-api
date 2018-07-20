@@ -3,6 +3,7 @@ package edu.nikon.simpleapi.api.user.dao;
 import edu.nikon.simpleapi.api.user.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -114,16 +115,16 @@ public class UserDaoImpl implements UserDao {
         CriteriaQuery<User> query = em.getCriteriaBuilder().createQuery(User.class);
         Root<User> user = query.from(User.class);
 
-        Predicate officeFilter = builder.equal(user.get("officeId"), officeId);
+        Predicate officeFilter = builder.equal(user.get("office"), officeId);
         Predicate firstNameFilter = first == null ?
                 builder.conjunction() :
-                builder.like(builder.lower(user.get("name.first")), "%" + first.toLowerCase() + "%");
+                builder.like(builder.lower(user.get("name").get("first")), "%" + first.toLowerCase() + "%");
         Predicate secondNameFilter = second == null ?
                 builder.conjunction() :
-                builder.like(builder.lower(user.get("name.second")), "%" + second.toLowerCase() + "%");
+                builder.like(builder.lower(user.get("name").get("second")), "%" + second.toLowerCase() + "%");
         Predicate middleNameFilter = middle == null ?
                 builder.conjunction() :
-                builder.like(builder.lower(user.get("name.middle")), "%" + middle.toLowerCase() + "%");
+                builder.like(builder.lower(user.get("name").get("middle")), "%" + middle.toLowerCase() + "%");
         Predicate positionFilter = position == null ?
                 builder.conjunction() :
                 builder.like(builder.lower(user.get("position")), "%" + position.toLowerCase() + "%");
@@ -134,7 +135,7 @@ public class UserDaoImpl implements UserDao {
                 builder.conjunction() :
                 builder.equal(user.get("citizenshipCode"), citizenshipCode);
 
-        Predicate filter = builder.or(officeFilter, firstNameFilter, secondNameFilter, middleNameFilter, positionFilter,
+        Predicate filter = builder.and(officeFilter, firstNameFilter, secondNameFilter, middleNameFilter, positionFilter,
                                       docCodeFilter, citizenshipCodeFilter);
 
         return query.where(filter);

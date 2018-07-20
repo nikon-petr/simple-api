@@ -6,6 +6,7 @@ import edu.nikon.simpleapi.api.catalog.dto.mapper.CountryMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,16 +14,17 @@ import java.util.stream.Collectors;
 public class CountryServiceImpl implements CountryService {
 
     private final CountryDao countryDao;
+    private final CountryMapper countryMapper;
 
     @Autowired
-    public CountryServiceImpl(CountryDao countryDao) {
+    public CountryServiceImpl(CountryDao countryDao,
+                              CountryMapper countryMapper) {
         this.countryDao = countryDao;
+        this.countryMapper = countryMapper;
     }
 
     @Override
     public List<CountryItemDto> findAll() {
-        return countryDao.findAll().stream()
-                .map(CountryMapper.mapEntityToItemDto())
-                .collect(Collectors.toList());
+        return countryMapper.mapAsList(countryDao.findAll(), CountryItemDto.class);
     }
 }

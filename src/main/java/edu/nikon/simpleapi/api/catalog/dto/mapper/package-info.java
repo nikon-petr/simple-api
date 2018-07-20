@@ -1,5 +1,5 @@
 /**
- * Contains classes that map data to needed form for transfer
+ * Classes for configure catalog mapper factories
  *
  * @author nikon-petr
  */

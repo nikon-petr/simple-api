@@ -2,20 +2,22 @@ package edu.nikon.simpleapi.api.catalog.dto.mapper;
 
 import edu.nikon.simpleapi.api.catalog.domain.Country;
 import edu.nikon.simpleapi.api.catalog.dto.CountryItemDto;
+import ma.glasnost.orika.MapperFactory;
+import ma.glasnost.orika.impl.ConfigurableMapper;
+import org.springframework.stereotype.Component;
 
 import java.util.function.Function;
 
 /**
- * Util for mapping from entity to dto and in the opposite direction
+ * Class for configure country mapper factory
  */
-public class CountryMapper {
+@Component
+public class CountryMapper extends ConfigurableMapper {
 
-    /**
-     * Map entity to item dto
-     *
-     * @return item dto for document
-     */
-    public static Function<Country, CountryItemDto> mapEntityToItemDto() {
-        return entity -> new CountryItemDto(entity.getCode(), entity.getName());
+    @Override
+    protected void configure(MapperFactory factory) {
+        factory.classMap(Country.class, CountryItemDto.class)
+                .byDefault()
+                .register();
     }
 }

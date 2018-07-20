@@ -3,72 +3,60 @@ package edu.nikon.simpleapi.api.user.dto.mapper;
 import edu.nikon.simpleapi.api.common.embeddable.Name;
 import edu.nikon.simpleapi.api.user.domain.User;
 import edu.nikon.simpleapi.api.user.dto.SaveUserDto;
+import edu.nikon.simpleapi.api.user.dto.UpdateUserDto;
 import edu.nikon.simpleapi.api.user.dto.UserDetailedDto;
 import edu.nikon.simpleapi.api.user.dto.UserItemDto;
+import ma.glasnost.orika.MapperFactory;
+import ma.glasnost.orika.impl.ConfigurableMapper;
+import org.springframework.stereotype.Component;
 
 import java.util.function.Function;
 
 /**
- * Util for mapping from entity to dto and in the opposite direction
+ * Class for configure user mapper factory
  */
-public class UserMapper {
+@Component
+public class UserMapper extends ConfigurableMapper {
 
-    /**
-     * Maps user entity to dto which is a list item
-     *
-     * @return function returning office mapped to {@link UserItemDto}
-     * @see User
-     * @see UserItemDto
-     */
-    public static Function<User, UserItemDto> mapEntityToItem() {
-        return u -> new UserItemDto(
-                u.getOfficeId(),
-                u.getName().getFirst(),
-                u.getName().getSecond(),
-                u.getName().getMiddle(),
-                u.getPosition(),
-                u.getDocumentCode(),
-                u.getCitizenshipCode()
-        );
-    }
+    @Override
+    protected void configure(MapperFactory factory) {
+        factory.classMap(User.class, UserItemDto.class)
+                .field("name.first", "firstName")
+                .field("name.second", "secondName")
+                .field("name.middle", "middleName")
+                .field("documentCode", "docCode")
+                .byDefault()
+                .register();
 
-    /**
-     * Maps user entity to detailed dto
-     *
-     * @return function returning user entity mapped to {@link UserDetailedDto}
-     * @see User
-     * @see UserDetailedDto
-     */
-    public static Function<User, UserDetailedDto> mapEntityToDetailed() {
-        return u -> new UserDetailedDto(
-                u.getId(),
-                u.getName().getFirst(),
-                u.getName().getSecond(),
-                u.getName().getMiddle(),
-                u.getPosition(),
-                u.getPhone(),
-                u.getDocumentType().getName(),
-                u.getDocumentData().getNumber(),
-                u.getDocumentData().getDate(),
-                u.getCitizenshipCountry().getName(),
-                u.getCitizenshipCountry().getCode(),
-                u.getIdentified()
-        );
-    }
+        factory.classMap(User.class, UserDetailedDto.class)
+                .field("name.first", "firstName")
+                .field("name.second", "secondName")
+                .field("name.middle", "middleName")
+                .field("documentType.name", "docName")
+                .field("documentData.number", "docNumber")
+                .field("documentData.date", "docDate")
+                .field("citizenshipCountry.name", "citizenshipName")
+                .byDefault()
+                .register();
 
-    /**
-     * Maps user dto to entity for saving in db
-     *
-     * @return function returning user dto mapped to {@link User}
-     * @see User
-     * @see SaveUserDto
-     */
-    public static Function<SaveUserDto, User> mapSaveDtoToEntity() {
-        return dto -> new User.Builder()
-                .setName(new Name(dto.getFirstName(), dto.getSecondName(), dto.getMiddleName()))
-                .setPosition(dto.getPosition())
-                .setPhone(dto.getPhone())
-                .setIdentified(dto.getIdentified())
-                .build();
+        factory.classMap(User.class, SaveUserDto.class)
+                .field("name.first", "firstName")
+                .field("name.second", "secondName")
+                .field("name.middle", "middleName")
+                .exclude("documentCode")
+                .exclude("citizenshipCode")
+                .exclude("officeId")
+                .byDefault()
+                .register();
+
+        factory.classMap(User.class, UpdateUserDto.class)
+                .field("name.first", "firstName")
+                .field("name.second", "secondName")
+                .field("name.middle", "middleName")
+                .exclude("documentCode")
+                .exclude("citizenshipCode")
+                .exclude("officeId")
+                .byDefault()
+                .register();
     }
 }

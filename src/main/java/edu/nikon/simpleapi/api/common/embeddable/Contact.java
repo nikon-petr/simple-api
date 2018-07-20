@@ -13,7 +13,7 @@ public class Contact {
     private String address;
     private String phone;
 
-    protected Contact() {
+    public Contact() {
     }
 
     public Contact(String address, String phone) {

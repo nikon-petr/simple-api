@@ -2,20 +2,22 @@ package edu.nikon.simpleapi.api.catalog.dto.mapper;
 
 import edu.nikon.simpleapi.api.catalog.domain.DocumentType;
 import edu.nikon.simpleapi.api.catalog.dto.DocTypeItemDto;
+import ma.glasnost.orika.MapperFactory;
+import ma.glasnost.orika.impl.ConfigurableMapper;
+import org.springframework.stereotype.Component;
 
 import java.util.function.Function;
 
 /**
- * Util for mapping from entity to dto and in the opposite direction
+ * Class for configure document type mapper factory
  */
-public class DocumentTypeMapper {
+@Component
+public class DocumentTypeMapper extends ConfigurableMapper {
 
-    /**
-     * Map entity to item dto
-     *
-     * @return item dto for document type
-     */
-    public static Function<DocumentType, DocTypeItemDto> mapEntityToItemDto() {
-        return entity -> new DocTypeItemDto(entity.getCode(), entity.getName());
+    @Override
+    protected void configure(MapperFactory factory) {
+        factory.classMap(DocumentType.class, DocTypeItemDto.class)
+                .byDefault()
+                .register();
     }
 }

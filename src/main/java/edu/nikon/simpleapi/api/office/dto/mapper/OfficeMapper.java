@@ -1,62 +1,42 @@
 package edu.nikon.simpleapi.api.office.dto.mapper;
 
-import edu.nikon.simpleapi.api.common.embeddable.Contact;
 import edu.nikon.simpleapi.api.office.domain.Office;
 import edu.nikon.simpleapi.api.office.dto.OfficeDetailedDto;
 import edu.nikon.simpleapi.api.office.dto.OfficeItemDto;
 import edu.nikon.simpleapi.api.office.dto.SaveOfficeDto;
-
-import java.util.function.Function;
+import edu.nikon.simpleapi.api.office.dto.UpdateOfficeDto;
+import ma.glasnost.orika.MapperFactory;
+import ma.glasnost.orika.impl.ConfigurableMapper;
+import org.springframework.stereotype.Component;
 
 /**
- * Util for mapping from entity to dto and in the opposite direction
+ * Class for configure office mapper factory
  */
-public class OfficeMapper {
+@Component
+public class OfficeMapper extends ConfigurableMapper {
 
-    /**
-     * Maps office entity to dto which is a list item
-     *
-     * @return function returning office mapped to {@link OfficeItemDto}
-     * @see Office
-     * @see OfficeItemDto
-     */
-    public static Function<Office, OfficeItemDto> mapEntityToItem() {
-        return o -> new OfficeItemDto(
-                o.getId(),
-                o.getName(),
-                o.getActive()
-        );
-    }
+    @Override
+    protected void configure(MapperFactory factory) {
+        factory.classMap(Office.class, OfficeItemDto.class)
+                .byDefault()
+                .register();
 
-    /**
-     * Maps office entity to detailed dto
-     *
-     * @return function returning office mapped to {@link OfficeDetailedDto}
-     * @see Office
-     * @see OfficeDetailedDto
-     */
-    public static Function<Office, OfficeDetailedDto> mapEntityToDetailed() {
-        return o -> new OfficeDetailedDto(
-                o.getId(),
-                o.getName(),
-                o.getContact().getAddress(),
-                o.getContact().getPhone(),
-                o.getActive()
-        );
-    }
+        factory.classMap(Office.class, OfficeDetailedDto.class)
+                .field("contact.address", "address")
+                .field("contact.phone", "phone")
+                .byDefault()
+                .register();
 
-    /**
-     * Maps office dto to entity for saving in db
-     *
-     * @return function returning office dto mapped to {@link Office}
-     * @see Office
-     * @see SaveOfficeDto
-     */
-    public static Function<SaveOfficeDto, Office> mapSaveDtoToEntity() {
-        return dto -> new Office.Builder()
-                .setName(dto.getName())
-                .setContact(new Contact(dto.getAddress(), dto.getPhone()))
-                .setActive(dto.getActive())
-                .build();
+        factory.classMap(Office.class, SaveOfficeDto.class)
+                .field("contact.address", "address")
+                .field("contact.phone", "phone")
+                .byDefault()
+                .register();
+
+        factory.classMap(Office.class, UpdateOfficeDto.class)
+                .field("contact.address", "address")
+                .field("contact.phone", "phone")
+                .byDefault()
+                .register();
     }
 }
