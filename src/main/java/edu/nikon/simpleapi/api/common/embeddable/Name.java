@@ -34,7 +34,7 @@ public class Name {
         this.middle = middle;
     }
 
-    @Column(name = "first_name",length = 35, nullable = false)
+    @Column(name = "first_name", length = 35, nullable = false)
     public String getFirst() {
         return first;
     }
@@ -43,7 +43,7 @@ public class Name {
         this.first = Objects.requireNonNull(first);
     }
 
-    @Column(name = "second_name",length = 35)
+    @Column(name = "second_name", length = 35)
     public String getSecond() {
         return second;
     }
@@ -52,7 +52,7 @@ public class Name {
         this.second = second;
     }
 
-    @Column(name = "middle_name",length = 35)
+    @Column(name = "middle_name", length = 35)
     public String getMiddle() {
         return middle;
     }

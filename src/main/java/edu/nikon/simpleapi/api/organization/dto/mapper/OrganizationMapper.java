@@ -5,7 +5,6 @@ import edu.nikon.simpleapi.api.organization.domain.Organization;
 import edu.nikon.simpleapi.api.organization.dto.OrganizationDetailedDto;
 import edu.nikon.simpleapi.api.organization.dto.OrganizationItemDto;
 import edu.nikon.simpleapi.api.organization.dto.SaveOrganizationDto;
-import edu.nikon.simpleapi.api.organization.dto.UpdateOrganizationDto;
 
 import java.util.function.Function;
 

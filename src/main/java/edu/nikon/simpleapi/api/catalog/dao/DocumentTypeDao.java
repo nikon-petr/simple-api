@@ -7,4 +7,5 @@ import edu.nikon.simpleapi.api.common.dao.BaseDao;
  * Provide an abstract interface to the database document_type table
  */
 public interface DocumentTypeDao extends BaseDao<DocumentType, String> {
+
 }

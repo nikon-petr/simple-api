@@ -88,7 +88,8 @@ public class SpringExceptionHandler extends AbstractExceptionHandler {
     @ResponseStatus(BAD_REQUEST)
     public Response handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e) {
         String parameterTypeName = e.getParameter().getParameterType().toString().toLowerCase();
-        String errorMessage = String.format("Path variable %s is not valid for type %s", e.getName(), parameterTypeName);
+        String errorMessage = String.format("Path variable %s is not valid for type %s", e.getName(),
+                                            parameterTypeName);
         return handleError(Collections.singletonList(errorMessage));
     }
 

@@ -4,7 +4,6 @@ import edu.nikon.simpleapi.api.common.dao.BaseDao;
 import edu.nikon.simpleapi.api.organization.domain.Organization;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Provide an abstract interface to the database organization table

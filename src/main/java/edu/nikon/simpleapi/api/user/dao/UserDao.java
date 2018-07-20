@@ -20,12 +20,12 @@ public interface UserDao extends BaseDao<User, Long> {
     Optional<User> findByIdEager(Long id);
 
     /**
-     * @param officeId id of office related to the user
-     * @param first first name
-     * @param second second name
-     * @param middle middle name
-     * @param position user position
-     * @param docCode document code
+     * @param officeId        id of office related to the user
+     * @param first           first name
+     * @param second          second name
+     * @param middle          middle name
+     * @param position        user position
+     * @param docCode         document code
      * @param citizenshipCode country ISO code of citizenship
      * @return list of users with requested parameters
      * @see User

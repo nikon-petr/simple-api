@@ -18,7 +18,7 @@ public class UpdateOrganizationDto {
      * organization id
      */
     private long id;
-    
+
     /**
      * organization name
      */

@@ -3,7 +3,6 @@ package edu.nikon.simpleapi.api.catalog.dao;
 import edu.nikon.simpleapi.api.catalog.domain.Country;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;

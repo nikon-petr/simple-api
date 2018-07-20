@@ -104,9 +104,9 @@ public class User {
     }
 
     private User(Long id, Name name, String position, String phone, String documentCode,
-                String citizenshipCode, Boolean identified, Long officeId,
-                DocumentData documentData, DocumentType documentType,
-                Country citizenshipCountry, Office office) {
+                 String citizenshipCode, Boolean identified, Long officeId,
+                 DocumentData documentData, DocumentType documentType,
+                 Country citizenshipCountry, Office office) {
         this.id = id;
         this.name = name;
         this.position = position;
@@ -123,11 +123,11 @@ public class User {
 
     @Id
     @SequenceGenerator(
-            name="user_id_seq",
-            sequenceName="user_id_seq",
-            allocationSize=1
+            name = "user_id_seq",
+            sequenceName = "user_id_seq",
+            allocationSize = 1
     )
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="user_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_id_seq")
     public Long getId() {
         return id;
     }

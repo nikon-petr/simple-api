@@ -1,7 +1,6 @@
 package edu.nikon.simpleapi.api.user.dto.mapper;
 
 import edu.nikon.simpleapi.api.common.embeddable.Name;
-import edu.nikon.simpleapi.api.user.domain.DocumentData;
 import edu.nikon.simpleapi.api.user.domain.User;
 import edu.nikon.simpleapi.api.user.dto.SaveUserDto;
 import edu.nikon.simpleapi.api.user.dto.UserDetailedDto;

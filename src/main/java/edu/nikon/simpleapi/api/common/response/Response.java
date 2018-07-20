@@ -49,7 +49,7 @@ public class Response<T> {
      * Returns response with specified data body
      *
      * @param dataDto data body
-     * @param <R> data body type
+     * @param <R>     data body type
      * @return response with specified data body
      */
     public static <R> Response<R> data(R dataDto) {

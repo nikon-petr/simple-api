@@ -7,4 +7,5 @@ import edu.nikon.simpleapi.api.common.dao.BaseDao;
  * Provide an abstract interface to the database country table
  */
 public interface CountryDao extends BaseDao<Country, String> {
+
 }

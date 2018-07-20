@@ -24,9 +24,9 @@ public class ApiExceptionHandler extends AbstractExceptionHandler {
     /**
      * Handle exception thrown when data not found
      *
-     * @param e exception object
+     * @param e   exception object
      * @param req request object
-     * @return
+     * @return wrapped error dto
      */
     @ExceptionHandler(DataNotFoundException.class)
     @ResponseStatus(NOT_FOUND)
@@ -39,7 +39,7 @@ public class ApiExceptionHandler extends AbstractExceptionHandler {
      * Handle exception thrown when new data conflict with current
      *
      * @param e exception object
-     * @return request object
+     * @return response object
      */
     @ExceptionHandler(DataConflictException.class)
     @ResponseStatus(CONFLICT)

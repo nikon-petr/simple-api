@@ -2,7 +2,6 @@ package edu.nikon.simpleapi.api.organization.service;
 
 import edu.nikon.simpleapi.api.common.exception.DataConflictException;
 import edu.nikon.simpleapi.api.common.exception.DataNotFoundException;
-import edu.nikon.simpleapi.api.organization.OrganizationController;
 import edu.nikon.simpleapi.api.organization.dao.OrganizationDao;
 import edu.nikon.simpleapi.api.organization.domain.Organization;
 import edu.nikon.simpleapi.api.organization.dto.FilterOrganizationDto;
@@ -11,8 +10,6 @@ import edu.nikon.simpleapi.api.organization.dto.OrganizationItemDto;
 import edu.nikon.simpleapi.api.organization.dto.SaveOrganizationDto;
 import edu.nikon.simpleapi.api.organization.dto.UpdateOrganizationDto;
 import edu.nikon.simpleapi.api.organization.dto.mapper.OrganizationMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

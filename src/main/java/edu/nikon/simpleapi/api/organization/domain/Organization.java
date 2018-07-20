@@ -1,7 +1,6 @@
 package edu.nikon.simpleapi.api.organization.domain;
 
 import edu.nikon.simpleapi.api.common.embeddable.Contact;
-
 import edu.nikon.simpleapi.api.office.domain.Office;
 
 import javax.persistence.CascadeType;
@@ -75,7 +74,8 @@ public class Organization {
     protected Organization() {
     }
 
-    private Organization(long id, String name, String fullName, String inn, String kpp, Contact contact, Boolean active) {
+    private Organization(long id, String name, String fullName, String inn, String kpp, Contact contact,
+                         Boolean active) {
         this.id = id;
         setName(name);
         setFullName(fullName);
@@ -119,7 +119,7 @@ public class Organization {
     }
 
     public void setFullName(String fullName) {
-        this.fullName =  Objects.requireNonNull(fullName, "Full name can not be null");
+        this.fullName = Objects.requireNonNull(fullName, "Full name can not be null");
     }
 
     @Column(nullable = false, length = 12)
