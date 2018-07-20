@@ -1,8 +1,6 @@
 package edu.nikon.simpleapi.api.organization;
 
-import edu.nikon.simpleapi.api.common.response.OperationResults;
 import edu.nikon.simpleapi.api.common.response.Response;
-import edu.nikon.simpleapi.api.common.response.dto.OperationResultDto;
 import edu.nikon.simpleapi.api.organization.dto.FilterOrganizationDto;
 import edu.nikon.simpleapi.api.organization.dto.OrganizationDetailedDto;
 import edu.nikon.simpleapi.api.organization.dto.OrganizationItemDto;
@@ -48,21 +46,19 @@ public class OrganizationController {
             @ApiResponse(code = 400, message = "Client error"),
             @ApiResponse(code = 500, message = "Server error")})
     @PostMapping(value = "/list", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
-    public Response<List<OrganizationItemDto>> filterOrganizations(
+    public List<OrganizationItemDto> filterOrganizations(
             @RequestBody @Validated FilterOrganizationDto filterDto) {
         logger.debug("Received: {}", filterDto);
         List<OrganizationItemDto> organizations = organizationService.filter(filterDto);
-        logger.debug("Sent: {}", organizations);
-        return Response.data(organizations);
+        return organizations;
     }
 
     @ApiOperation(value = "Get organization by id", nickname = "getOrganizationById", httpMethod = "GET")
     @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
-    public Response<OrganizationDetailedDto> getOrganizationById(@PathVariable("id") long id) {
+    public OrganizationDetailedDto getOrganizationById(@PathVariable("id") long id) {
         logger.debug("Received: id={}", id);
         OrganizationDetailedDto organization = organizationService.findById(id);
-        logger.debug("Sent: {}", organization);
-        return Response.data(organization);
+        return organization;
     }
 
     @ApiOperation(value = "Save organization", nickname = "saveOrganization", httpMethod = "POST")
@@ -73,10 +69,10 @@ public class OrganizationController {
             @ApiResponse(code = 500, message = "Server error")
     })
     @PostMapping(value = "/save", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
-    public Response<OperationResultDto> saveOrganization(@RequestBody @Validated SaveOrganizationDto organizationDto) {
+    public Response<?> saveOrganization(@RequestBody @Validated SaveOrganizationDto organizationDto) {
         logger.debug("Received: {}", organizationDto);
         organizationService.save(organizationDto);
-        return Response.operationResult(OperationResults.SUCCESS);
+        return Response.successOperation();
     }
 
     @ApiOperation(value = "Update organization", nickname = "updateOrganization", httpMethod = "POST")
@@ -87,10 +83,10 @@ public class OrganizationController {
             @ApiResponse(code = 500, message = "Server error")
     })
     @PostMapping(value = "/update", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
-    public Response<OperationResultDto> updateOrganization(
+    public Response<?> updateOrganization(
             @RequestBody @Validated UpdateOrganizationDto organizationDto) {
         logger.debug("Received: {}", organizationDto);
         organizationService.update(organizationDto);
-        return Response.operationResult(OperationResults.SUCCESS);
+        return Response.successOperation();
     }
 }

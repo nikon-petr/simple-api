@@ -26,13 +26,24 @@ public class Response<T> {
     }
 
     /**
-     * Returns response with specified result
+     * Return wrapped success operation result
      *
-     * @param result operation result
-     * @return response with specified result
+     * @return success {@link OperationResultDto}
      */
-    public static Response<OperationResultDto> operationResult(OperationResults result) {
-        return new Response<>(new OperationResultDto(result.getMessage()));
+    public static Response<OperationResultDto> successOperation() {
+        return new Response<>(new OperationResultDto("success"));
+    }
+
+    /**
+     * Return {@link ErrorDto} and {@link OperationResultDto} wrapped in {@link Response}
+     *
+     * @param errorDto error dto
+     * @return error operation result
+     */
+    public static Response<OperationResultDto> errorOperation(ErrorDto errorDto) {
+        Response<OperationResultDto> response = new Response<>(new OperationResultDto("error"));
+        response.setError(errorDto);
+        return response;
     }
 
     /**
@@ -60,8 +71,16 @@ public class Response<T> {
         return data;
     }
 
+    private void setData(T data) {
+        this.data = data;
+    }
+
     public ErrorDto getError() {
         return error;
+    }
+
+    private void setError(ErrorDto error) {
+        this.error = error;
     }
 
     @Override

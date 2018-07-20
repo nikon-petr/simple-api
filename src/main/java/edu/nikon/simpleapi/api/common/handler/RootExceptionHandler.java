@@ -1,6 +1,7 @@
 package edu.nikon.simpleapi.api.common.handler;
 
 import edu.nikon.simpleapi.api.common.response.Response;
+import edu.nikon.simpleapi.api.common.response.dto.ErrorDto;
 import org.springframework.core.annotation.Order;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -23,7 +24,7 @@ public class RootExceptionHandler extends AbstractExceptionHandler {
      */
     @ExceptionHandler({Exception.class, RuntimeException.class})
     @ResponseStatus(INTERNAL_SERVER_ERROR)
-    public Response handleDefaultException(Exception e) {
+    public ErrorDto handleDefaultException(Exception e) {
         return handleInternalError(e);
     }
 }

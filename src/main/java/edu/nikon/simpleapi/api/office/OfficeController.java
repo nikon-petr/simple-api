@@ -1,8 +1,6 @@
 package edu.nikon.simpleapi.api.office;
 
-import edu.nikon.simpleapi.api.common.response.OperationResults;
 import edu.nikon.simpleapi.api.common.response.Response;
-import edu.nikon.simpleapi.api.common.response.dto.OperationResultDto;
 import edu.nikon.simpleapi.api.office.domain.Office;
 import edu.nikon.simpleapi.api.office.dto.FilterOfficeDto;
 import edu.nikon.simpleapi.api.office.dto.OfficeDetailedDto;
@@ -49,12 +47,11 @@ public class OfficeController {
             @ApiResponse(code = 400, message = "Client error"),
             @ApiResponse(code = 500, message = "Server error")})
     @PostMapping(value = "/list", consumes = APPLICATION_JSON_VALUE)
-    public Response<List<OfficeItemDto>> filterOffice(
+    public List<OfficeItemDto> filterOffice(
             @RequestBody @Validated FilterOfficeDto filterDto) {
         logger.debug("Received: {}", filterDto);
         List<OfficeItemDto> offices = officeService.filter(filterDto);
-        logger.debug("Sent: {}", offices);
-        return Response.data(offices);
+        return offices;
     }
 
     @ApiOperation(value = "Get office by id", nickname = "getOfficeById", httpMethod = "GET")
@@ -62,7 +59,6 @@ public class OfficeController {
     public Response<OfficeDetailedDto> getOfficeById(@PathVariable("id") long id) {
         logger.debug("Received: id={}", id);
         OfficeDetailedDto office = officeService.findById(id);
-        logger.debug("Sent: {}", office);
         return Response.data(office);
     }
 
@@ -74,11 +70,11 @@ public class OfficeController {
             @ApiResponse(code = 500, message = "Server error")
     })
     @PostMapping(value = "/save", consumes = APPLICATION_JSON_VALUE)
-    public Response<OperationResultDto> saveOffice(@RequestBody @Validated SaveOfficeDto saveDto) {
+    public Response<?> saveOffice(@RequestBody @Validated SaveOfficeDto saveDto) {
         logger.debug("Received: {}", saveDto);
         Office office = officeService.save(saveDto);
         logger.debug("Saved: {}", office);
-        return Response.operationResult(OperationResults.SUCCESS);
+        return Response.successOperation();
     }
 
     @ApiOperation(value = "Update office", nickname = "updateOffice", httpMethod = "POST")
@@ -89,10 +85,10 @@ public class OfficeController {
             @ApiResponse(code = 500, message = "Server error")
     })
     @PostMapping(value = "/update", consumes = APPLICATION_JSON_VALUE)
-    public Response<OperationResultDto> updateOffice(@RequestBody @Validated UpdateOfficeDto updateDto) {
+    public Response<?> updateOffice(@RequestBody @Validated UpdateOfficeDto updateDto) {
         logger.debug("Received: {}", updateDto);
         Office office = officeService.update(updateDto);
         logger.debug("Updated: {}", office);
-        return Response.operationResult(OperationResults.SUCCESS);
+        return Response.successOperation();
     }
 }

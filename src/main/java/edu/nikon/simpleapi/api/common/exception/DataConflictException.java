@@ -3,7 +3,7 @@ package edu.nikon.simpleapi.api.common.exception;
 /**
  * Exception thrown data conflicts in API
  */
-public class DataConflictException extends ApiException {
+public class DataConflictException extends OperationErrorException {
 
     public DataConflictException() {
     }

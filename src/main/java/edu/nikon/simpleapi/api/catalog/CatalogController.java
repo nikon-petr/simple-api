@@ -4,7 +4,6 @@ import edu.nikon.simpleapi.api.catalog.dto.CountryItemDto;
 import edu.nikon.simpleapi.api.catalog.dto.DocTypeItemDto;
 import edu.nikon.simpleapi.api.catalog.service.CountryService;
 import edu.nikon.simpleapi.api.catalog.service.DocumentTypeService;
-import edu.nikon.simpleapi.api.common.response.Response;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,13 +33,13 @@ public class CatalogController {
 
     @ApiOperation(value = "Return documents", nickname = "documents", httpMethod = "GET")
     @GetMapping(value = "/docs", produces = APPLICATION_JSON_VALUE)
-    public Response<List<DocTypeItemDto>> getDocs() {
-        return Response.data(documentTypeService.findAll());
+    public List<DocTypeItemDto> getDocs() {
+        return documentTypeService.findAll();
     }
 
     @ApiOperation(value = "Return counties", nickname = "countries", httpMethod = "GET")
     @GetMapping(value = "/countries", produces = APPLICATION_JSON_VALUE)
-    public Response<List<CountryItemDto>> getCountries() {
-        return Response.data(countryService.findAll());
+    public List<CountryItemDto> getCountries() {
+        return countryService.findAll();
     }
 }

@@ -1,8 +1,6 @@
 package edu.nikon.simpleapi.api.user;
 
-import edu.nikon.simpleapi.api.common.response.OperationResults;
 import edu.nikon.simpleapi.api.common.response.Response;
-import edu.nikon.simpleapi.api.common.response.dto.OperationResultDto;
 import edu.nikon.simpleapi.api.user.dto.FilterUserDto;
 import edu.nikon.simpleapi.api.user.dto.SaveUserDto;
 import edu.nikon.simpleapi.api.user.dto.UpdateUserDto;
@@ -48,20 +46,19 @@ public class UserController {
             @ApiResponse(code = 400, message = "Client error"),
             @ApiResponse(code = 500, message = "Server error")})
     @PostMapping(value = "/list", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
-    public Response<List<UserItemDto>> filterUser(
+    public List<UserItemDto> filterUser(
             @RequestBody @Validated FilterUserDto filterDto) {
         logger.debug("Received: {}", filterDto);
         List<UserItemDto> users = userService.filter(filterDto);
-        logger.debug("Sent: {}", users);
-        return Response.data(users);
+        return users;
     }
 
     @ApiOperation(value = "Get user by id", nickname = "getUserById", httpMethod = "GET")
     @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
-    public Response<UserDetailedDto> getUserById(@PathVariable("id") long id) {
+    public UserDetailedDto getUserById(@PathVariable("id") long id) {
         logger.debug("Received: id={}", id);
         UserDetailedDto user = userService.findById(id);
-        return Response.data(user);
+        return user;
     }
 
     @ApiOperation(value = "Save user", nickname = "saveUser", httpMethod = "POST")
@@ -72,10 +69,10 @@ public class UserController {
             @ApiResponse(code = 500, message = "Server error")
     })
     @PostMapping(value = "/save", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
-    public Response<OperationResultDto> saveUser(@RequestBody @Validated SaveUserDto saveDto) {
+    public Response<?> saveUser(@RequestBody @Validated SaveUserDto saveDto) {
         logger.debug("Received: {}", saveDto);
         userService.save(saveDto);
-        return Response.operationResult(OperationResults.SUCCESS);
+        return Response.successOperation();
     }
 
     @ApiOperation(value = "Update user", nickname = "updateUser", httpMethod = "POST")
@@ -86,9 +83,9 @@ public class UserController {
             @ApiResponse(code = 500, message = "Server error")
     })
     @PostMapping(value = "/update", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
-    public Response<OperationResultDto> updateUser(@RequestBody @Validated UpdateUserDto updateDto) {
+    public Response<?> updateUser(@RequestBody @Validated UpdateUserDto updateDto) {
         logger.debug("Received: {}", updateDto);
         userService.update(updateDto);
-        return Response.operationResult(OperationResults.SUCCESS);
+        return Response.successOperation();
     }
 }

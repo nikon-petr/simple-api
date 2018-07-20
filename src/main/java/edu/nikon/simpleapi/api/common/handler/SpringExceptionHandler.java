@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 import edu.nikon.simpleapi.api.common.response.Response;
+import edu.nikon.simpleapi.api.common.response.dto.ErrorDto;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -41,7 +42,7 @@ public class SpringExceptionHandler extends AbstractExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(BAD_REQUEST)
-    public Response handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+    public ErrorDto handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         List<String> errorMessages = e.getBindingResult().getFieldErrors().stream()
                 .map(fe -> fe.getDefaultMessage())
                 .collect(Collectors.toList());
@@ -50,7 +51,7 @@ public class SpringExceptionHandler extends AbstractExceptionHandler {
 
     @ExceptionHandler(MismatchedInputException.class)
     @ResponseStatus(BAD_REQUEST)
-    public Response handleInvalidFormatException(MismatchedInputException e) {
+    public ErrorDto handleInvalidFormatException(MismatchedInputException e) {
         String fieldName = e.getPath().stream()
                 .map(reference -> reference.getFieldName())
                 .reduce((fullName, name) -> fullName + "." + name)
@@ -62,7 +63,7 @@ public class SpringExceptionHandler extends AbstractExceptionHandler {
 
     @ExceptionHandler(UnrecognizedPropertyException.class)
     @ResponseStatus(BAD_REQUEST)
-    public Response handleUnrecognizedPropertyException(UnrecognizedPropertyException e) {
+    public ErrorDto handleUnrecognizedPropertyException(UnrecognizedPropertyException e) {
         String fieldName = e.getPath().stream()
                 .map(reference -> reference.getFieldName())
                 .reduce((fullName, name) -> fullName + "." + name)
@@ -73,20 +74,20 @@ public class SpringExceptionHandler extends AbstractExceptionHandler {
 
     @ExceptionHandler(JsonParseException.class)
     @ResponseStatus(BAD_REQUEST)
-    public Response handleJsonMappingException(JsonParseException e) {
+    public ErrorDto handleJsonMappingException(JsonParseException e) {
         return handleError(Collections.singletonList("Invalid syntax"));
     }
 
     @ExceptionHandler(MissingPathVariableException.class)
     @ResponseStatus(BAD_REQUEST)
-    public Response missingPathVariableException(MissingPathVariableException e) {
+    public ErrorDto missingPathVariableException(MissingPathVariableException e) {
         String errorMessage = String.format("Path variable %s not found", e.getVariableName());
         return handleError(Collections.singletonList(errorMessage));
     }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     @ResponseStatus(BAD_REQUEST)
-    public Response handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e) {
+    public ErrorDto handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e) {
         String parameterTypeName = e.getParameter().getParameterType().toString().toLowerCase();
         String errorMessage = String.format("Path variable %s is not valid for type %s", e.getName(),
                                             parameterTypeName);
@@ -95,21 +96,21 @@ public class SpringExceptionHandler extends AbstractExceptionHandler {
 
     @ExceptionHandler(MissingServletRequestParameterException.class)
     @ResponseStatus(BAD_REQUEST)
-    public Response missingServletRequestParameter(MissingServletRequestParameterException e) {
+    public ErrorDto missingServletRequestParameter(MissingServletRequestParameterException e) {
         String errorMessage = String.format("Request parameter %s is required", e.getParameterName());
         return handleError(Collections.singletonList(errorMessage));
     }
 
     @ExceptionHandler(NoHandlerFoundException.class)
     @ResponseStatus(NOT_FOUND)
-    public Response handleNoHandlerFoundException(NoHandlerFoundException e) {
+    public ErrorDto handleNoHandlerFoundException(NoHandlerFoundException e) {
         String errorMessage = String.format("Resource %s not found", e.getRequestURL());
         return handleError(Collections.singletonList(errorMessage));
     }
 
     @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
     @ResponseStatus(UNSUPPORTED_MEDIA_TYPE)
-    public Response handleHttpMediaTypeNotSupportedException(HttpMediaTypeNotSupportedException e) {
+    public ErrorDto handleHttpMediaTypeNotSupportedException(HttpMediaTypeNotSupportedException e) {
         String errorMessage = "Media type is not supported";
         return handleError(Collections.singletonList(errorMessage));
     }
@@ -124,7 +125,7 @@ public class SpringExceptionHandler extends AbstractExceptionHandler {
         }
         return ResponseEntity.status(NOT_ACCEPTABLE)
                 .headers(headers)
-                .body(handleError(Collections.singletonList(errorMessage)));
+                .body(Response.error(handleError(Collections.singletonList(errorMessage))));
     }
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
@@ -137,12 +138,12 @@ public class SpringExceptionHandler extends AbstractExceptionHandler {
         }
         return ResponseEntity.status(METHOD_NOT_ALLOWED)
                 .headers(headers)
-                .body(handleError(Collections.singletonList(errorMessage)));
+                .body(Response.error(handleError(Collections.singletonList(errorMessage))));
     }
 
     @ExceptionHandler(HttpMessageNotWritableException.class)
     @ResponseStatus(INTERNAL_SERVER_ERROR)
-    public Response handleHttpMessageNotWritableException(HttpMessageNotWritableException e) {
+    public ErrorDto handleHttpMessageNotWritableException(HttpMessageNotWritableException e) {
         return handleInternalError(e);
     }
 }
