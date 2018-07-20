@@ -1,6 +1,6 @@
 databaseChangeLog:
     - changeSet:
-        id: 003
+        id: 003_prod_dev
         author: nikon-petr
         changes:
             - createTable:
@@ -52,3 +52,29 @@ databaseChangeLog:
                         name: phone
                     - column:
                         name: active
+    - changeSet:
+        id: 003_dev
+        author: nikon-petr
+        context: dev
+        changes:
+            - loadData:
+                tableName: office
+                columns:
+                    - column:
+                        name: version
+                    - column:
+                        name: name
+                    - column:
+                        name: address
+                    - column:
+                        name: phone
+                    - column:
+                        name: active
+                    - column:
+                        name: organization_id
+                encoding: UTF-8
+                separator: ;
+                file: liquibase/csv/offices.csv
+        rollback:
+            - delete:
+                tableName: office

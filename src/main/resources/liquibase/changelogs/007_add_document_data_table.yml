@@ -1,7 +1,8 @@
 databaseChangeLog:
     - changeSet:
-        id: 007
+        id: 007_prod_dev
         author: nikon-petr
+        context: prod, dev
         changes:
             - createTable:
                 tableName: document_data
@@ -31,3 +32,25 @@ databaseChangeLog:
                         type: date
                         constraints:
                             nullable: false
+    - changeSet:
+        id: 007_dev
+        author: nikon-petr
+        context: dev
+        changes:
+            - loadData:
+                tableName: document_data
+                columns:
+                    - column:
+                        name: user_id
+                    - column:
+                        name: version
+                    - column:
+                        name: number
+                    - column:
+                        name: date
+                encoding: UTF-8
+                separator: ;
+                file: liquibase/csv/document_data.csv
+        rollback:
+            - delete:
+                tableName: document_data

@@ -1,0 +1,6 @@
+changeLogFile: ${basedir}/src/main/resources/liquibase/master.yml
+driver: org.postgresql.Driver
+url: jdbc:postgresql://localhost:5432/simpleapi_app_db
+username: simpleapi_app
+password: q1w2e3
+verbose: true

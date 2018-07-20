@@ -1,7 +1,8 @@
 databaseChangeLog:
     - changeSet:
-        id: 006
+        id: 006_prod_dev
         author: nikon-petr
+        context: prod, dev
         changes:
             - createTable:
                 tableName: user
@@ -88,3 +89,37 @@ databaseChangeLog:
                         name: document_type_code
                     - column:
                         name: citizenship_code
+    - changeSet:
+        id: 006_dev
+        author: nikon-petr
+        context: dev
+        changes:
+            - loadData:
+                tableName: user
+                columns:
+                    - column:
+                        name: version
+                    - column:
+                        name: first_name
+                    - column:
+                        name: second_name
+                    - column:
+                        name: middle_name
+                    - column:
+                        name: position
+                    - column:
+                        name: phone
+                    - column:
+                        name: identified
+                    - column:
+                        name: document_type_code
+                    - column:
+                        name: citizenship_code
+                    - column:
+                        name: office_id
+                encoding: UTF-8
+                separator: ;
+                file: liquibase/csv/users.csv
+        rollback:
+            - delete:
+                tableName: user

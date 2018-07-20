@@ -1,7 +1,8 @@
 databaseChangeLog:
     - changeSet:
-        id: 002
+        id: 002_prod_dev
         author: nikon-petr
+        contexts: prod, dev
         changes:
             - createTable:
                 tableName: organization
@@ -74,4 +75,34 @@ databaseChangeLog:
                         name: active
         rollback:
             - dropTable:
+                tableName: organization
+    - changeSet:
+        id: 002_dev
+        author: nikon-petr
+        context: dev
+        changes:
+            - loadData:
+                tableName: organization
+                columns:
+                    - column:
+                        name: version
+                    - column:
+                        name: name
+                    - column:
+                        name: full_name
+                    - column:
+                        name: inn
+                    - column:
+                        name: kpp
+                    - column:
+                        name: address
+                    - column:
+                        name: phone
+                    - column:
+                        name: active
+                encoding: UTF-8
+                separator: ;
+                file: liquibase/csv/organizations.csv
+        rollback:
+            - delete:
                 tableName: organization

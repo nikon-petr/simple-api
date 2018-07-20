@@ -1,7 +1,8 @@
 databaseChangeLog:
     - changeSet:
-        id: 005
+        id: 005_prod_dev
         author: nikon-petr
+        context: prod, dev
         changes:
             - createTable:
                 tableName: country

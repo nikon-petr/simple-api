@@ -224,13 +224,7 @@
                 <artifactId>liquibase-maven-plugin</artifactId>
                 <version>${liquibase.version}</version>
                 <configuration>
-                    <changeLogFile>
-                        ${basedir}/src/main/resources/liquibase/master.yml
-                    </changeLogFile>
-                    <driver>org.postgresql.Driver</driver>
-                    <url>jdbc:postgresql://localhost:5432/simpleapi_app_db</url>
-                    <username>simpleapi_app</username>
-                    <password>q1w2e3</password>
+                    <propertyFile>target/classes/liquibase.yml</propertyFile>
                 </configuration>
             </plugin>
 
