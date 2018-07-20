@@ -262,18 +262,6 @@ public class User {
         this.documentData = documentData;
     }
 
-    /**
-     * Manage bidirectional office relation. Add user to office or set to null.
-     *
-     * @param office
-     */
-    public void addToOffice(Office office) {
-        if (office != null) {
-            office.addUser(this);
-        }
-        this.office = office;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

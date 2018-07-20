@@ -1,7 +1,7 @@
 package edu.nikon.simpleapi.api.common.exception;
 
 /**
- * Exception thrown
+ * Exception thrown data not found in API
  */
 public class DataNotFoundException extends ApiException {
 

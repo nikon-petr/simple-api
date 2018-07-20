@@ -114,7 +114,7 @@ public class UserServiceImpl implements UserService {
         }
 
         User user = UserMapper.mapSaveDtoToEntity().apply(dto);
-        user.addToOffice(office);
+        user.setOffice(office);
         user.setDocumentType(documentType);
         user.attachDocumentData(documentData);
         user.setCitizenshipCountry(country);
@@ -177,7 +177,7 @@ public class UserServiceImpl implements UserService {
 
         user.setCitizenshipCountry(country);
         user.setIdentified(dto.getIdentified());
-        user.addToOffice(office);
+        user.setOffice(office);
 
         return user;
     }

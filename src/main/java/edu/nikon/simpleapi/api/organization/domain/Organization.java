@@ -173,11 +173,21 @@ public class Organization {
         this.offices = offices;
     }
 
+    /**
+     * Manage bidirectional office relation. Add office to organization
+     *
+     * @param office office entity
+     */
     public void addOffice(Office office) {
         getOffices().add(office);
         office.setOrganization(this);
     }
 
+    /**
+     * Manage bidirectional office relation. Remove office from organization
+     *
+     * @param office office entity
+     */
     public void removeOffice(Office office) {
         getOffices().remove(office);
         office.setOrganization(null);

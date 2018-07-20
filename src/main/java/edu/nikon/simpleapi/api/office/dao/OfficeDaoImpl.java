@@ -89,14 +89,14 @@ public class OfficeDaoImpl implements OfficeDao {
         Predicate nameFilter = name == null ?
                 builder.conjunction() :
                 builder.like(builder.lower(office.get("name")), "%" + name.toLowerCase() + "%");
-        Predicate innFilter = phone == null ?
+        Predicate phoneFilter = phone == null ?
                 builder.conjunction() :
                 builder.equal(office.get("phone"), phone);
         Predicate activeFilter = active == null ?
                 builder.conjunction() :
                 builder.equal(office.get("active"), active);
 
-        Predicate filter = builder.and(orgIdFilter, nameFilter, innFilter, activeFilter);
+        Predicate filter = builder.and(orgIdFilter, nameFilter, phoneFilter, activeFilter);
 
         return query.where(filter);
     }
