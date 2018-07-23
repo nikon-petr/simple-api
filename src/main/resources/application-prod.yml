@@ -8,4 +8,5 @@ spring:
         serialization:
             INDENT_OUTPUT: false
     liquibase:
-      contexts: prod
+        contexts: prod
+        drop-first: true

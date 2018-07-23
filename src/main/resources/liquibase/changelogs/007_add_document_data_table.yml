@@ -1,8 +1,8 @@
 databaseChangeLog:
     - changeSet:
-        id: 007_prod_dev
+        id: 007_schema
         author: nikon-petr
-        context: prod, dev
+        context: prod, dev, test
         changes:
             - createTable:
                 tableName: document_data
@@ -33,9 +33,9 @@ databaseChangeLog:
                         constraints:
                             nullable: false
     - changeSet:
-        id: 007_dev
+        id: 007_data
         author: nikon-petr
-        context: dev
+        context: dev, test
         changes:
             - loadData:
                 tableName: document_data

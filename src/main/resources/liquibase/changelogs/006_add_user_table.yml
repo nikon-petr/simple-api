@@ -1,8 +1,8 @@
 databaseChangeLog:
     - changeSet:
-        id: 006_prod_dev
+        id: 006_schema
         author: nikon-petr
-        context: prod, dev
+        context: prod, dev, test
         changes:
             - createTable:
                 tableName: user
@@ -90,9 +90,9 @@ databaseChangeLog:
                     - column:
                         name: citizenship_code
     - changeSet:
-        id: 006_dev
+        id: 006_data
         author: nikon-petr
-        context: dev
+        context: dev, test
         changes:
             - loadData:
                 tableName: user

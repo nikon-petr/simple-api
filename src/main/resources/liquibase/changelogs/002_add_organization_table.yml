@@ -1,8 +1,8 @@
 databaseChangeLog:
     - changeSet:
-        id: 002_prod_dev
+        id: 002_schema
         author: nikon-petr
-        contexts: prod, dev
+        contexts: prod, dev, test
         changes:
             - createTable:
                 tableName: organization
@@ -77,9 +77,9 @@ databaseChangeLog:
             - dropTable:
                 tableName: organization
     - changeSet:
-        id: 002_dev
+        id: 002_data
         author: nikon-petr
-        context: dev
+        context: dev, test
         changes:
             - loadData:
                 tableName: organization

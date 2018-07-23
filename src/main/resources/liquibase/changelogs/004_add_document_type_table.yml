@@ -1,8 +1,8 @@
 databaseChangeLog:
     - changeSet:
-        id: 004_prod_dev
+        id: 004_schema
         author: nikon-petr
-        context: prod, dev
+        context: prod, dev, test
         changes:
             - createTable:
                 tableName: document_type

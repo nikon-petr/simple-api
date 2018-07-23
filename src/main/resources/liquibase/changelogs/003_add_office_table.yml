@@ -1,7 +1,8 @@
 databaseChangeLog:
     - changeSet:
-        id: 003_prod_dev
+        id: 003_schema
         author: nikon-petr
+        context: prod, dev, test
         changes:
             - createTable:
                 tableName: office
@@ -53,9 +54,9 @@ databaseChangeLog:
                     - column:
                         name: active
     - changeSet:
-        id: 003_dev
+        id: 003_data
         author: nikon-petr
-        context: dev
+        context: dev, test
         changes:
             - loadData:
                 tableName: office
