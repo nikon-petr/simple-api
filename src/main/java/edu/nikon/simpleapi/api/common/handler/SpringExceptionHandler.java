@@ -25,6 +25,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
@@ -43,10 +44,14 @@ public class SpringExceptionHandler extends AbstractExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(BAD_REQUEST)
     public ErrorDto handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
-        List<String> errorMessages = e.getBindingResult().getFieldErrors().stream()
-                .map(fe -> fe.getDefaultMessage())
+        Stream<String> fieldsErrors = e.getBindingResult().getFieldErrors().stream()
+                .map(fe -> fe.getDefaultMessage());
+        Stream<String> globalErrors = e.getBindingResult().getGlobalErrors().stream()
+                .map(ge -> ge.getDefaultMessage());
+        List<String> allErrors = Stream.of(fieldsErrors, globalErrors)
+                .flatMap(ae -> ae)
                 .collect(Collectors.toList());
-        return handleError(errorMessages);
+        return handleError(allErrors);
     }
 
     @ExceptionHandler(MismatchedInputException.class)

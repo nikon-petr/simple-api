@@ -1,6 +1,7 @@
 package edu.nikon.simpleapi.api.user.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import edu.nikon.simpleapi.api.user.dto.validator.IsDocumentValid;
 import io.swagger.annotations.ApiModel;
 
 import javax.validation.constraints.NotBlank;
@@ -13,6 +14,7 @@ import java.util.Date;
  * DTO class used to receive user data for saving
  */
 @ApiModel("SaveUser")
+@IsDocumentValid
 public class SaveUserDto {
 
     /**
