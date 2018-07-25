@@ -106,6 +106,7 @@ public class UserServiceImpl implements UserService {
                 throw new DataConflictException("Document number should be unique");
             }
             documentData = new DocumentData(dto.getDocNumber(), dto.getDocDate());
+            documentData.setDocumentType(documentType);
         }
 
         if (dto.getCitizenshipCode() != null) {
@@ -116,7 +117,6 @@ public class UserServiceImpl implements UserService {
 
         User user = userMapper.map(dto, User.class);
         user.setOffice(office);
-        user.setDocumentType(documentType);
         user.attachDocumentData(documentData);
         user.setCitizenshipCountry(country);
         userDao.save(user);
@@ -157,7 +157,6 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new DataNotFoundException(userNotFound));
 
         userMapper.map(dto, user);
-        user.setDocumentType(documentType);
 
         if (dto.getDocDate() != null || dto.getDocNumber() != null) {
             if (dto.getDocNumber() != null && !documentDataDao.isUnique(dto.getId(), dto.getDocNumber())) {
@@ -165,8 +164,10 @@ public class UserServiceImpl implements UserService {
             }
             if (user.getDocumentData() == null) {
                 DocumentData documentData = new DocumentData(dto.getDocNumber(), dto.getDocDate());
+                documentData.setDocumentType(documentType);
                 user.attachDocumentData(documentData);
             } else {
+                user.getDocumentData().setDocumentType(documentType);
                 user.getDocumentData().setNumber(dto.getDocNumber());
                 user.getDocumentData().setDate(dto.getDocDate());
             }

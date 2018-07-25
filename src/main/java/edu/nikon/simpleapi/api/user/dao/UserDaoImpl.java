@@ -81,9 +81,9 @@ public class UserDaoImpl implements UserDao {
         Objects.requireNonNull(id);
 
         String queryString = "select u from User u " +
-                "join fetch u.documentType dt " +
                 "join fetch u.documentData dd " +
                 "join fetch u.citizenshipCountry cc " +
+                "join u.documentData.documentType dt " +
                 "where u.id = :id";
 
         TypedQuery<User> query = em.createQuery(queryString, User.class);
@@ -130,7 +130,7 @@ public class UserDaoImpl implements UserDao {
                 builder.like(builder.lower(user.get("position")), "%" + position.toLowerCase() + "%");
         Predicate docCodeFilter = docCode == null ?
                 builder.conjunction() :
-                builder.equal(user.get("documentCode"), docCode);
+                builder.equal(user.get("documentData").get("documentCode"), docCode);
         Predicate citizenshipCodeFilter = citizenshipCode == null ?
                 builder.conjunction() :
                 builder.equal(user.get("citizenshipCode"), citizenshipCode);

@@ -24,7 +24,7 @@ public class UserMapper extends ConfigurableMapper {
                 .field("name.first", "firstName")
                 .field("name.second", "secondName")
                 .field("name.middle", "middleName")
-                .field("documentCode", "docCode")
+                .field("documentData.documentCode", "docCode")
                 .byDefault()
                 .register();
 
@@ -32,7 +32,7 @@ public class UserMapper extends ConfigurableMapper {
                 .field("name.first", "firstName")
                 .field("name.second", "secondName")
                 .field("name.middle", "middleName")
-                .field("documentType.name", "docName")
+                .field("documentData.documentType.name", "docName")
                 .field("documentData.number", "docNumber")
                 .field("documentData.date", "docDate")
                 .field("citizenshipCountry.name", "citizenshipName")

@@ -1,0 +1,58 @@
+databaseChangeLog:
+    - changeSet:
+        id: 008_schema
+        author: nikon-petr
+        context: prod, dev, test
+        changes:
+            - dropForeignKeyConstraint:
+                baseTableName: user
+                constraintName: user_document_type_fk
+            - addColumn:
+                tableName: document_data
+                columns:
+                    - column:
+                        name: document_type_code
+                        type: varchar(2)
+            - addForeignKeyConstraint:
+                constraintName: document_data_document_type_fk
+                baseColumnNames: document_type_code
+                baseTableName: document_data
+                referencedColumnNames: code
+                referencedTableName: document_type
+                onDelete: CASCADE
+            - update:
+                tableName: document_data
+                columns:
+                    - column:
+                        name: document_type_code
+                        valueComputed: >
+                            (select u.document_type_code from "user" u where u.id = user_id)
+            - dropIndex:
+                tableName: user
+                indexName: idx_user_filter
+            - dropIndex:
+                tableName: user
+                indexName: idx_user_document_type_code
+            - dropColumn:
+                tableName: user
+                columnName: document_type_code
+            - createIndex:
+                indexName: idx_user_filter
+                tableName: user
+                columns:
+                    - column:
+                        name: first_name
+                    - column:
+                        name: second_name
+                    - column:
+                        name: middle_name
+                    - column:
+                        name: position
+                    - column:
+                        name: citizenship_code
+            - createIndex:
+                tableName: document_data
+                indexName: idx_document_data_document_type_code
+                columns:
+                    - column:
+                        name: document_type_code

@@ -28,9 +28,8 @@ import java.util.Objects;
 @Table(
         name = "`user`",
         indexes = {
-                @Index(name = "idx_user_document_type_code", columnList = "document_type_code"),
                 @Index(name = "idx_user_citizenship_code", columnList = "citizenship_code"),
-                @Index(name = "idx_user_filter", columnList = "first_name,second_name,middle_name,position,document_type_code,citizenship_code")
+                @Index(name = "idx_user_filter", columnList = "first_name,second_name,middle_name,position,citizenship_code")
         }
 )
 public class User {
@@ -61,11 +60,6 @@ public class User {
     private String phone;
 
     /**
-     * user's document code (readonly)
-     */
-    private String documentCode;
-
-    /**
      * user's citizenship country code (readonly)
      */
     private String citizenshipCode;
@@ -84,11 +78,6 @@ public class User {
      * user document data (number, date and etc)
      */
     private DocumentData documentData;
-
-    /**
-     * user document type joined by documentCode
-     */
-    private DocumentType documentType;
 
     /**
      * user citizenship country joined by citizenshipCode
@@ -153,15 +142,6 @@ public class User {
         this.phone = phone;
     }
 
-    @Column(name = "document_type_code", length = 2, insertable = false, updatable = false)
-    public String getDocumentCode() {
-        return documentCode;
-    }
-
-    public void setDocumentCode(String documentCode) {
-        this.documentCode = documentCode;
-    }
-
     @Column(name = "citizenship_code", length = 3, insertable = false, updatable = false)
     public String getCitizenshipCode() {
         return citizenshipCode;
@@ -200,16 +180,6 @@ public class User {
 
     public void setDocumentData(DocumentData documentData) {
         this.documentData = documentData;
-    }
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "document_type_code")
-    public DocumentType getDocumentType() {
-        return documentType;
-    }
-
-    public void setDocumentType(DocumentType documentType) {
-        this.documentType = documentType;
     }
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -252,14 +222,13 @@ public class User {
         return Objects.equals(name, user.name) &&
                 Objects.equals(position, user.position) &&
                 Objects.equals(phone, user.phone) &&
-                Objects.equals(documentCode, user.documentCode) &&
                 Objects.equals(citizenshipCode, user.citizenshipCode) &&
                 Objects.equals(identified, user.identified);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, position, phone, documentCode, citizenshipCode, identified);
+        return Objects.hash(name, position, phone, citizenshipCode, identified);
     }
 
     @Override
@@ -270,11 +239,9 @@ public class User {
         sb.append(", name=").append(name);
         sb.append(", position='").append(position).append('\'');
         sb.append(", phone='").append(phone).append('\'');
-        sb.append(", documentCode='").append(documentCode).append('\'');
         sb.append(", citizenshipCode='").append(citizenshipCode).append('\'');
         sb.append(", identified=").append(identified);
         sb.append(", documentData={...}").append(documentData);
-        sb.append(", documentType={...}").append(documentType);
         sb.append(", citizenshipCountry={...}").append(citizenshipCountry);
         sb.append('}');
         return sb.toString();

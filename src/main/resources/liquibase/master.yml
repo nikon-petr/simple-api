@@ -20,3 +20,6 @@ databaseChangeLog:
     - include:
         relativeToChangelogFile: true
         file: ./changelogs/007_add_document_data_table.yml
+    - include:
+        relativeToChangelogFile: true
+        file: ./changelogs/008_move_document_type_to_document_data_table.yml
