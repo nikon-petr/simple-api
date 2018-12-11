@@ -21,7 +21,7 @@ spring:
     datasource:
         url: jdbc:postgresql://localhost:5432/simpleapi_app_db
         username: simpleapi_app
-        data-password: q1w2e3
+        password: q1w2e3
         driver-class-name: org.postgresql.Driver
         initialization-mode: never
     jackson:
