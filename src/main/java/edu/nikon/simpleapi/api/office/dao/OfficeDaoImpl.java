@@ -91,7 +91,7 @@ public class OfficeDaoImpl implements OfficeDao {
                 builder.like(builder.lower(office.get("name")), "%" + name.toLowerCase() + "%");
         Predicate phoneFilter = phone == null ?
                 builder.conjunction() :
-                builder.equal(office.get("phone"), phone);
+                builder.equal(office.get("contact").get("phone"), phone);
         Predicate activeFilter = active == null ?
                 builder.conjunction() :
                 builder.equal(office.get("active"), active);
